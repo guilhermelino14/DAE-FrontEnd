@@ -1,11 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: [
-    'vuetify/lib/styles/main.sass',
-    '@mdi/font/css/materialdesignicons.min.css'
+  css: ['~/assets/css/input.css'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+  modules: [
+    '@nuxtjs/tailwindcss'
   ],
-  build: {
-    transpile: ['vuetify'],
-  }
+  app: {
+    head: {
+      htmlAttrs: {
+        class:"dark",
+      },
+    }
+  },
 })
