@@ -33,13 +33,14 @@
                 </div>
                 <button  class=" w-full px-5 py-3 text-base font-medium text-center bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
             </form>
+            <button @click="teste">teste</button>
         </div>
     </div>
 </template>
 <script setup>
 import { useAuthStore } from '../store/auth-store'
 
-const storeAuth = useAuthStore();
+
 
 const loginForm = ref({
     username: '',
@@ -56,12 +57,12 @@ const login = async () => {
         },
         body: loginForm.value
     }).then((response) => {
-        console.log(response.data.value.token)
-        console.log(response.data.value.user)
-        storeAuth.login(response.data.value.user, response.data.value.token)
+        addDataToLocalStorafe(response.data.value.user,response.data.value.token)
     })
-
-
+}
+const addDataToLocalStorafe = (user,token) => {
+    const storeAuth = useAuthStore();
+    storeAuth.login(user,token)
 }
 
 </script>
