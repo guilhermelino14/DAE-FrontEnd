@@ -59,7 +59,6 @@
                         d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z">
                       </path>
                     </svg>
-                    kek
                   </div>
                 </div>
                 <div class="w-full pl-3">
@@ -272,7 +271,7 @@
             </a>
           </div>
         </div>
-        <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
+        <!-- <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
           class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
           <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
@@ -289,7 +288,7 @@
           class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
           Toggle dark mode
           <div class="tooltip-arrow" data-popper-arrow></div>
-        </div>
+        </div> -->
         <!-- Profile -->
         <div class="flex items-center ml-3">
           <div>
@@ -370,5 +369,5 @@
   </div>
 </nav></template>
 <script setup>
-const login = false
+const login = true
 </script>
