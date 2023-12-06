@@ -11,6 +11,12 @@ export const useAuthStore = defineStore({
         login(user,token){
             this.user = user
             this.token = token
-        }
+        },
+        isAuthenticated(){
+            return this.user != undefined
+        },
+        isFabricante(){
+            return this.isAuthenticated() && this.user.role == "Fabricante"
+        },
     }
 })

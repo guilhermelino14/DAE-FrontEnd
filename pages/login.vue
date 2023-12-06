@@ -58,6 +58,7 @@ const login = async () => {
         body: loginForm.value
     }).then((response) => {
         addDataToLocalStorafe(response.data.value.user,response.data.value.token)
+        return navigateTo("/fabricante")
     })
 }
 const addDataToLocalStorafe = (user,token) => {
