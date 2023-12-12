@@ -40,7 +40,7 @@
 <script setup>
 import { useAuthStore } from '../store/auth-store'
 
-
+const storeAuth = useAuthStore();
 
 const loginForm = ref({
     username: '',
@@ -57,9 +57,10 @@ const login = async () => {
         },
         body: loginForm.value
     }).then((response) => {
-        addDataToLocalStorafe(response.data.value.user,response.data.value.token)
+        storeAuth.login(response.data.value.user, response.data.value.token)
         return navigateTo("/fabricante")
     })
+    return navigateTo("/fabricante")
 }
 const addDataToLocalStorafe = (user,token) => {
     const storeAuth = useAuthStore();

@@ -18,10 +18,10 @@
                 clip-rule="evenodd"></path>
             </svg>
           </button>
-          <a href="" class="flex ml-2 md:mr-24">
+          <NuxtLink to="./" class="flex ml-2 md:mr-24">
             <img src="/logoWhite.png" class="h-8 mr-3" alt="" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"></span>
-          </a>
+          </NuxtLink>
 
         </div>
         <div class="flex items-center" v-show="login">
