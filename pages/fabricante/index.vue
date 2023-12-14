@@ -1,6 +1,5 @@
 <template>
-<div>
-    <div class="px-4 pt-6">
+<div id="app">
     <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
       <!-- Main widget -->
       <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -1437,7 +1436,6 @@
         </div>
       </div>
     </div>
-</div>
 </div>
 </template>
 <script setup>
