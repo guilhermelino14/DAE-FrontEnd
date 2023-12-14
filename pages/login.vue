@@ -5,7 +5,7 @@
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
                 Sign in to platform
             </h2>
-            <form class="mt-8 space-y-6" @submit.prevent="login">
+            <form class="mt-8 space-y-6">
                 <div>
                     <label for="username"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
@@ -31,9 +31,9 @@
                     <a href="#" class="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500">Lost
                         Password?</a>
                 </div>
-                <button  class=" w-full px-5 py-3 text-base font-medium text-center bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
+                <button @click="login"
+                    class=" w-full px-5 py-3 text-base font-medium text-center bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
             </form>
-            <button @click="teste">teste</button>
         </div>
     </div>
 </template>
@@ -48,23 +48,31 @@ const loginForm = ref({
 })
 
 
-const login = async () => {
-    await useFetch('http://localhost:8080/smartPackage/api/auth/login', {
+const login = async (event) => {
+    event.preventDefault();
+    const { data, pending, error, refresh, status } = await useFetch('http://localhost:8080/smartPackage/api/auth/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
         },
-        body: loginForm.value
-    }).then((response) => {
-        storeAuth.login(response.data.value.user, response.data.value.token)
-        return navigateTo("/fabricante")
+        body: JSON.stringify(loginForm.value)
     })
-    return navigateTo("/fabricante")
+    switch (status.value) {
+        case "success":
+            storeAuth.login(data.value.user, data.value.token)
+            navigateTo("/fabricante")
+            break;
+        case "error":
+            console.log(error)
+            break;
+        default:
+            //"idle", "pending", "success", "error"
+            break;
+    }
 }
-const addDataToLocalStorafe = (user,token) => {
+const addDataToLocalStorafe = (user, token) => {
     const storeAuth = useAuthStore();
-    storeAuth.login(user,token)
+    storeAuth.login(user, token)
 }
 
 </script>

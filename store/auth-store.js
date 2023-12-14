@@ -5,37 +5,37 @@ import { ref, computed } from "vue"
 export const useAuthStore = defineStore('auth', () => {
     const user = ref({})
     const token = ref("")
+    const userLocalStorage = useStorage('user', null)
+    const tokenLocalStorage = useStorage('token', null)
 
-    // Setup localstorage
-
-    function storageAuth(){
-        useStorage('user',user.value)
-        useStorage('token',token.value)
-    }
 
     // Login
-    function login(user_1,token_1){
-        user.value = user_1
-        token.value = token_1
-        storageAuth()
+    function login(user1, token1) {
+        user.value = user1
+        token.value = token1
+        //add to localStorage
+        userLocalStorage.value = user1
+        tokenLocalStorage.value = token1
     }
 
     // Logout
-    function logout(){
+    function logout() {
         user.value = {}
         token.value = ""
-        storageAuth()
+        //remove from localStorage
+        userLocalStorage.value = null;
+        tokenLocalStorage.value = null;
     }
 
     // Check is authentifcated
-    function isAuthenticated(){
-        return this.user.value != null
-    }
+    const isAuthenticated = computed(() => {
+        return user.value?.role
+    })
 
     // Check is a Fabricante
-    function isFabricante(){
-        return this.isAuthenticated() && this.user.role == "Fabricante"
-    }
+    const isFabricante = computed(() => {
+        return user.value.role == "Fabricante"
+    })
 
     return {
         login,
