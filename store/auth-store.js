@@ -21,7 +21,10 @@ export const useAuthStore = defineStore('auth', () => {
 
     // Check is authentifcated
     const isAuthenticated = computed(() => {
-        return user.value?.role
+        if (token.value != "") {
+            return true
+        }
+        return false
     })
 
     // Check is a Fabricante

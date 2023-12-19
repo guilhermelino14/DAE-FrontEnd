@@ -106,5 +106,6 @@ const { data: embalagens, error, refresh } = await useFetch(`${api}/fabricante/e
 
 definePageMeta({
     layout: 'fabricante',
+    middleware: 'fabricante',
 })
 </script>

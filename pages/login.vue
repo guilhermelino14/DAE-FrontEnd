@@ -40,6 +40,11 @@
 <script setup>
 import { useAuthStore } from '../store/auth-store'
 import { useToast } from 'vue-toastification'
+
+definePageMeta({
+    middleware: 'login',
+})
+
 const toast = useToast()
 
 const storeAuth = useAuthStore();
