@@ -47,7 +47,8 @@
             <div>
               <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                 <div class="flex-shrink-0">
-                  <img class="rounded-full w-11 h-11" src="/images/users/bonnie-green.png" alt="Jese image">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Jese image">
                   <div
                     class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 border border-white rounded-full bg-primary-700 dark:border-gray-700">
                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -70,7 +71,8 @@
               </a>
               <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                 <div class="flex-shrink-0">
-                  <img class="rounded-full w-11 h-11" src="/images/users/jese-leos.png" alt="Jese image">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Jese image">
                   <div
                     class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-700">
                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -90,7 +92,9 @@
               </a>
               <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                 <div class="flex-shrink-0">
-                  <img class="rounded-full w-11 h-11" src="/images/users/joseph-mcfall.png" alt="Joseph image">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg"
+                    alt="Joseph image">
                   <div
                     class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-red-600 border border-white rounded-full dark:border-gray-700">
                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -111,7 +115,9 @@
               </a>
               <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                 <div class="flex-shrink-0">
-                  <img class="rounded-full w-11 h-11" src="/images/users/leslie-livingston.png" alt="Leslie image">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg"
+                    alt="Leslie image">
                   <div
                     class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-green-400 border border-white rounded-full dark:border-gray-700">
                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -132,7 +138,9 @@
               </a>
               <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600">
                 <div class="flex-shrink-0">
-                  <img class="rounded-full w-11 h-11" src="/images/users/robert-brown.png" alt="Robert image">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg"
+                    alt="Robert image">
                   <div
                     class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-purple-500 border border-white rounded-full dark:border-gray-700">
                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -366,6 +374,39 @@
           </button>
         </div>
       </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="hidden sm:hidden" id="mobile-menu">
+      <ul class="pt-2">
+        <li>
+          <a href="#"
+            class="block py-2 pl-3 pr-4 text-base font-normal text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white">Dashboard</a>
+        </li>
+        <li>
+          <a href="#"
+            class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Team</a>
+        </li>
+        <li>
+          <a href="#"
+            class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Projects</a>
+        </li>
+        <li>
+          <a href="#"
+            class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Calendar
+          </a>
+        </li>
+        <li class="block">
+          <a href="#"
+            class="inline-flex items-center w-full px-3 py-2 text-base font-normal text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+            </svg>
+            Login/Register
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 </template>

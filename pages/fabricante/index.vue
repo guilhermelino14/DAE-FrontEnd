@@ -94,7 +94,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center min-w-0">
-                      <img class="flex-shrink-0 w-10 h-10" src="/images/products/iphone.png" alt="imac image">
+                      <img class="flex-shrink-0 w-10 h-10" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="imac image">
                       <div class="ml-3">
                         <p class="font-medium text-gray-900 truncate dark:text-white">
                           iPhone 14 Pro 
@@ -116,7 +116,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center min-w-0">
-                      <img class="flex-shrink-0 w-10 h-10" src="/images/products/imac.png" alt="imac image">
+                      <img class="flex-shrink-0 w-10 h-10" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="imac image">
                       <div class="ml-3">
                         <p class="font-medium text-gray-900 truncate dark:text-white">
                           Apple iMac 27"
@@ -138,7 +138,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center min-w-0">
-                      <img class="flex-shrink-0 w-10 h-10" src="/images/products/watch.png" alt="watch image">
+                      <img class="flex-shrink-0 w-10 h-10" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="watch image">
                       <div class="ml-3">
                         <p class="font-medium text-gray-900 truncate dark:text-white">
                           Apple Watch SE
@@ -160,7 +160,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center min-w-0">
-                      <img class="flex-shrink-0 w-10 h-10" src="/images/products/ipad.png" alt="ipad image">
+                      <img class="flex-shrink-0 w-10 h-10" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="ipad image">
                       <div class="ml-3">
                         <p class="font-medium text-gray-900 truncate dark:text-white">
                           Apple iPad Air
@@ -182,7 +182,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center min-w-0">
-                      <img class="flex-shrink-0 w-10 h-10" src="/images/products/imac.png" alt="imac image">
+                      <img class="flex-shrink-0 w-10 h-10" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="imac image">
                       <div class="ml-3">
                         <p class="font-medium text-gray-900 truncate dark:text-white">
                           Apple iMac 24"
@@ -208,7 +208,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
-                      <img class="w-8 h-8 rounded-full" src="/images/users/neil-sims.png" alt="Neil image">
+                      <img class="w-8 h-8 rounded-full" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
@@ -226,7 +226,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
-                      <img class="w-8 h-8 rounded-full" src="/images/users/bonnie-green.png" alt="Neil image">
+                      <img class="w-8 h-8 rounded-full" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
@@ -244,7 +244,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
-                      <img class="w-8 h-8 rounded-full" src="/images/users/michael-gough.png" alt="Neil image">
+                      <img class="w-8 h-8 rounded-full" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
@@ -262,7 +262,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
-                      <img class="w-8 h-8 rounded-full" src="/images/users/thomas-lean.png" alt="Neil image">
+                      <img class="w-8 h-8 rounded-full" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
@@ -280,7 +280,7 @@
                 <li class="py-3 sm:py-4">
                   <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
-                      <img class="w-8 h-8 rounded-full" src="/images/users/lana-byrd.png" alt="Neil image">
+                      <img class="w-8 h-8 rounded-full" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
