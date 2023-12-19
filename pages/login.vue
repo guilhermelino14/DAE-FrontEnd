@@ -60,7 +60,10 @@ const login = async (event) => {
     switch (status.value) {
         case "success":
             storeAuth.login(data.value.user, data.value.token)
-            navigateTo("/fabricante")
+            if (data.value.user.role == "Fabricante")
+                navigateTo("/fabricante")
+            if (data.value.user.role == "Consumidor")
+                navigateTo("/")
             break;
         case "error":
             console.log(error)

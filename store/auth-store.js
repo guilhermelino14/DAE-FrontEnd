@@ -10,7 +10,6 @@ export const useAuthStore = defineStore('auth', () => {
     // Login
     function login(user1, token1) {
         user.value = user1
-        console.log(toRaw(user.value))
         token.value = token1
     }
 
