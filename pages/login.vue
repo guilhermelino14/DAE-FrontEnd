@@ -39,6 +39,8 @@
 </template>
 <script setup>
 import { useAuthStore } from '../store/auth-store'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 const storeAuth = useAuthStore();
 
@@ -50,28 +52,25 @@ const loginForm = ref({
 
 const login = async (event) => {
     event.preventDefault();
-    const { data, pending, error, refresh, status } = await useFetch('http://localhost:8080/smartPackage/api/auth/login', {
+    await useFetch('http://localhost:8080/smartPackage/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(loginForm.value)
+    }).then(response => {
+        if (response.status.value == "error") {
+            toast.error("Username or password incorrect")
+            return
+        }
+        storeAuth.login(response.data.value.user, response.data.value.token)
+        if (response.data.value.user.role == "Fabricante")
+            navigateTo("/fabricante")
+        if (response.data.value.user.role == "Consumidor")
+            navigateTo("/")
+    }).catch(error => {
+        console.log(error)
     })
-    switch (status.value) {
-        case "success":
-            storeAuth.login(data.value.user, data.value.token)
-            if (data.value.user.role == "Fabricante")
-                navigateTo("/fabricante")
-            if (data.value.user.role == "Consumidor")
-                navigateTo("/")
-            break;
-        case "error":
-            console.log(error)
-            break;
-        default:
-            //"idle", "pending", "success", "error"
-            break;
-    }
 }
 const addDataToLocalStorafe = (user, token) => {
     const storeAuth = useAuthStore();

@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'
   ],
+  build:{
+    transpile: ['vue-toastification']
+  },
   app: {
     head: {
       htmlAttrs: {
