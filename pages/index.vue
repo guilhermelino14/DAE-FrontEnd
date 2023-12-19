@@ -53,6 +53,11 @@
 </template>
 
 <script setup>
+
+definePageMeta({
+    middleware: 'consumidor',
+})
+
 const items = [
     { id: 1, name:"teste"},
     { id: 2, name:"teste3"},
