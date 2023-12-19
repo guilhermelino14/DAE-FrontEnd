@@ -3,28 +3,21 @@ import { useStorage } from '@vueuse/core'
 import { ref, computed } from "vue"
 
 export const useAuthStore = defineStore('auth', () => {
-    const user = ref({})
-    const token = ref("")
-    const userLocalStorage = useStorage('user', null)
-    const tokenLocalStorage = useStorage('token', null)
+    const user = useStorage('user', ref({}))
+    const token = useStorage('token', ref(""))
 
 
     // Login
     function login(user1, token1) {
         user.value = user1
+        console.log(toRaw(user.value))
         token.value = token1
-        //add to localStorage
-        userLocalStorage.value = user1
-        tokenLocalStorage.value = token1
     }
 
     // Logout
     function logout() {
         user.value = {}
         token.value = ""
-        //remove from localStorage
-        userLocalStorage.value = null;
-        tokenLocalStorage.value = null;
     }
 
     // Check is authentifcated
