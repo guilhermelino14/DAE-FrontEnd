@@ -103,14 +103,7 @@ const adicionar = async () => {
             headers: { "Authorization": `Bearer ${authStore.token}` },
             body: JSON.stringify(newEmbalagem.value),
         });
-        
-        console.log(response);
-        if (status === "error") {
-            toast.error("Erro: " + error);
-            console.log(error);
-        }
-
-        if (status === "success") {
+        if (response.status.value === "success") {
             toast.success("Sucesso");
         }
     } catch (error) {
