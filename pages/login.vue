@@ -73,6 +73,8 @@ const login = async (event) => {
             navigateTo("/fabricante")
         if (response.data.value.user.role == "Consumidor")
             navigateTo("/")
+        if (response.data.value.user.role == "Operador")
+            navigateTo("/operador")
     }).catch(error => {
         console.log(error)
     })

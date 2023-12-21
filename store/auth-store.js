@@ -37,12 +37,17 @@ export const useAuthStore = defineStore('auth', () => {
         return user.value.role == "Consumidor"
     })
 
+    const isOperador = computed(() => {
+        return user.value.role == "Operador"
+    })
+
     return {
         login,
         logout,
         isAuthenticated,
         isFabricante,
         isConsumidor,
+        isOperador,
         user,
         token
     }

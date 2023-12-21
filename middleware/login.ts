@@ -6,7 +6,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (authStore.isAuthenticated) {
         if (authStore.isFabricante) {
             return navigateTo('/fabricante')
-        } else {
+        }
+        if (authStore.isOperador) {
+            return navigateTo('/operador')
+        }
+         else {
             return navigateTo('/')
         }
     }
