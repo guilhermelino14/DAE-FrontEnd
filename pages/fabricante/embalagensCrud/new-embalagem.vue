@@ -32,21 +32,21 @@
                             <div class="col-span-12 sm:col-span-6">
                                 <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-                                <input type="text" name="name" v-model="newEmbalagem.nome"
+                                <input type="text" id="name" name="name" v-model="newEmbalagem.nome"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Embalagem 1" required>
                             </div>
                             <div class="col-span-12 sm:col-span-6">
-                                <label for="dimensoes"
+                                <label for="altura"
                                     class="block text-sm font-medium text-gray-900 dark:text-white" style="margin-bottom: -15px;">Dimensões</label>
                             </div>
                             <div class="col-span-12 sm:col-span-3">
-                                <input type="number" name="altura" v-model="newEmbalagem.altura"
+                                <input type="number" id="altura" name="altura" v-model="newEmbalagem.altura"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Altura" required>
                             </div>
                             <div class="col-span-12 sm:col-span-3">
-                                <input type="number" name="largura" v-model="newEmbalagem.largura"
+                                <input type="number" id="largura" name="largura" v-model="newEmbalagem.largura"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Largura" required>
                             </div>
