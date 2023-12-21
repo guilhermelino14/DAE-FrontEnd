@@ -49,8 +49,26 @@
                     {{ embalagem.largura }}
                   </td>
                   <td class="p-4 whitespace-nowrap text-center">
-                    <span
-                      class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Completed</span>
+                    <NuxtLink to="/fabricante/embalagensCrud/show-details">
+                      <button type="button"
+                        class="py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                          <path
+                            d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                        </svg>
+                      </button>
+                    </NuxtLink>
+                    <NuxtLink to="/fabricante/embalagensCrud/show-details">
+                      <button type="button"
+                        class="ml-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                        </svg>
+                      </button>
+                    </NuxtLink>
                   </td>
                 </tr>
 
@@ -128,7 +146,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from "~/store/auth-store.js"
-import NewEmbalagem from './embalagens/new-embalagem.vue'
+import NewEmbalagem from '~/pages/fabricante/embalagensCrud/new-embalagem.vue'
 const authStore = useAuthStore()
 
 const config = useRuntimeConfig()
