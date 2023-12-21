@@ -38,7 +38,7 @@
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-gray-800">
-                <tr v-for="embalagem in embalagens">
+                <tr v-for="(embalagem, index) in embalagens">
                   <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                     {{ embalagem.nome }}
                   </td>
@@ -50,7 +50,7 @@
                   </td>
                   <td class="p-4 whitespace-nowrap text-center">
                     <NuxtLink to="/fabricante/embalagensCrud/show-details">
-                      <button type="button"
+                      <button type="button" :data-tooltip-target="index"
                         class="py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
@@ -59,8 +59,13 @@
                         </svg>
                       </button>
                     </NuxtLink>
+                    <div :id="index" role="tooltip"
+                      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                      Ver Detalhes
+                      <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                     <NuxtLink to="/fabricante/embalagensCrud/show-details">
-                      <button type="button"
+                      <button type="button" :data-tooltip-target="index+'eliminar'"
                         class="ml-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -69,6 +74,11 @@
                         </svg>
                       </button>
                     </NuxtLink>
+                    <div :id="index+'eliminar'" role="tooltip"
+                      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                      Eliminar Embalagem
+                      <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                   </td>
                 </tr>
 
