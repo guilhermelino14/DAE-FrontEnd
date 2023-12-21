@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     // Check is authentifcated
     const isAuthenticated = computed(() => {
-        if (token.value != "") {
+        if (token.value != "" && Object.keys(user.value).length > 0) {
             return true
         }
         return false
