@@ -1,17 +1,17 @@
 <template>
-    <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
-        <div class="flex items-center mb-4 sm:mb-0">
-        </div>
+    <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700" style="justify-content: right;">
+        
         <button
-            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button" aria-controls="default-modal" data-modal-target="default-modal" data-modal-toggle="default-modal">
-            Adecionar Embalagem
+            Adicionar Embalagem
         </button>
     </div>
 
 
     <div id="default-modal"
         class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full">
+        
         <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
@@ -38,24 +38,23 @@
                             </div>
                             <div class="col-span-12 sm:col-span-6">
                                 <label for="dimensoes"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dimensões</label>
+                                    class="block text-sm font-medium text-gray-900 dark:text-white" style="margin-bottom: -15px;">Dimensões</label>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
-
+                            <div class="col-span-12 sm:col-span-3">
                                 <input type="number" name="altura" v-model="newEmbalagem.altura"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Altura" required>
                             </div>
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-12 sm:col-span-3">
                                 <input type="number" name="largura" v-model="newEmbalagem.largura"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Largura" required>
                             </div>
                         </div>
                         <!-- Modal footer -->
-                        <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
+                        <div class="items-center pt-6 pb-2 border-gray-200 rounded-b dark:border-gray-700" style="text-align: right;">
                             <button :disabled="loading"
-                                class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="submit">
                                 <svg v-show="loading" aria-hidden="true" role="status"
                                     class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none"
@@ -69,12 +68,12 @@
                                 </svg>
                                 Adicionar Embalagem</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
 </template>
 
 <script setup>
@@ -84,6 +83,7 @@ import { useToast } from 'vue-toastification'
 import { useAuthStore } from "~/store/auth-store.js"
 const authStore = useAuthStore()
 
+const emit = defineEmits(['refresh'])
 const loading = ref(false)
 const toast = useToast()
 const config = useRuntimeConfig()
@@ -105,6 +105,8 @@ const adicionar = async () => {
         });
         if (response.status.value === "success") {
             toast.success("Sucesso");
+            emit('refresh')
+            
         }
     } catch (error) {
         console.log(error);
