@@ -16,11 +16,27 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Embalagens</h3>
             </div>
         </div>
-        asd
+        {{embalagem.nome}}
+        {{embalagem.altura}}
+        {{embalagem.largura}}
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { useAuthStore } from "~/store/auth-store.js"
+import { useToast } from 'vue-toastification'
+import { useRoute } from 'vue-router'
+const authStore = useAuthStore()
+const toast = useToast()
+
+const config = useRuntimeConfig()
+const api = config.public.API_URL
+
+const route = useRoute()
+const id = route.params.id
+
+const { data: embalagem, error, refresh } = await useFetch(`${api}/embalagensProduto/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 definePageMeta({
     layout: 'fabricante',
     middleware: 'fabricante',
