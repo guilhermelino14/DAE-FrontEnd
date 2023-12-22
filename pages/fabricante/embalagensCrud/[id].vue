@@ -1,24 +1,30 @@
 <template>
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 mb-3">
-        <NuxtLink to="/fabricante/embalagens">
-            <button type="button"
-                class="mb-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 8 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13" />
-                </svg>
-            </button>
-        </NuxtLink>
-        <!-- Card header -->
-        <div class="items-center justify-between lg:flex">
-            <div class="mb-4 lg:mb-0">
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Embalagens</h3>
+        <div class="grid grid-cols-12 border-b border-s-white ">
+            <div class="col-span-12 md:col-span-1 sm:col-span-2">
+                <NuxtLink to="/fabricante/embalagens">
+                    <button type="button"
+                        class="mb-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13" />
+                        </svg>
+                    </button>
+                </NuxtLink>
+            </div>
+            <div class="col-span-12 md:col-span-11 sm:col-span-10">
+                <!-- Card header -->
+                <div class="items-center justify-between lg:flex">
+                    <div class="mb-4 lg:mb-0">
+                        <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">{{ embalagem.nome }}</h3>
+                    </div>
+                </div>
+                
             </div>
         </div>
-        {{ embalagem.nome }}
         {{ embalagem.altura }}
-        {{ embalagem.largura }}
+                {{ embalagem.largura }}
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -45,7 +51,8 @@
                         </div>
                         <div class="inline-flex items-center">
                             <a href="#" @click="desassociar(sensor.id)"
-                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> Desasociar </a>
+                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                Desasociar </a>
                         </div>
                     </div>
                 </li>
