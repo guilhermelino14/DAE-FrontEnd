@@ -24,8 +24,9 @@
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Sensores Associados</h3>
+            <p class="text-xs" v-show="embalagem.sensores == ''">Sem sensores Associados</p>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-4" v-for="sensor in sensores">
+                <li class="pt-4 pb-4" v-for="sensor in embalagem.sensores">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -51,12 +52,12 @@
             </ul>
         </div>
     </div>
-    <div
+    <!-- <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Sensores Disponiveis</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-4" v-for="sensor in sensores">
+                <li class="pt-4 pb-4">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -81,7 +82,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script setup>
@@ -100,15 +101,13 @@ const id = route.params.id
 
 const { data: embalagem, error, refresh } = await useFetch(`${api}/embalagensProduto/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
-const { data: sensores } = await useFetch(`${api}/embalagensProduto/${id}/sensor`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
-
-
 const desassociar = async (sensorID) => {
     await useFetch(`${api}/embalagensProduto/${id}/sensor/${sensorID}`, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${authStore.token}` }
     }).then(() => {
         toast.success('Sensor desassociado com sucesso!')
+        refresh()
     }).catch(() => {
         toast.error('Erro ao desassociar sensor!')
     })
