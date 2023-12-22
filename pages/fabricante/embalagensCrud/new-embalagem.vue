@@ -98,7 +98,7 @@ const newEmbalagem = ref({
 const adicionar = async () => {
     loading.value = true
     try {
-        const response = await useFetch(`${api}/embalagensProduto/embalagem`, {
+        const response = await useFetch(`${api}/embalagensProduto/`, {
             method: 'POST',
             headers: { "Authorization": `Bearer ${authStore.token}` },
             body: JSON.stringify(newEmbalagem.value),

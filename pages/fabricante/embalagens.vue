@@ -161,7 +161,7 @@ const toast = useToast()
 
 const config = useRuntimeConfig()
 const api = config.public.API_URL
-const { data: embalagens, error, refresh } = await useFetch(`${api}/embalagensProduto/embalagens`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+const { data: embalagens, error, refresh } = await useFetch(`${api}/embalagensProduto/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 const deleteEmbalagem = async (id) => {
   try {
