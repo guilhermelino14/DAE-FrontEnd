@@ -180,6 +180,9 @@ const deleteEmbalagem = async (id) => {
     console.log(error)
   }
 }
+onMounted(() => {
+  initFlowbite();
+})
 
 definePageMeta({
   layout: 'fabricante',
