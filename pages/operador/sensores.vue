@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                                <tr v-for="sensor in sensores">
+                                <tr v-for="(sensor, index) in sensores">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ sensor.nome }}
                                     </td>
@@ -52,7 +52,7 @@
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-center">
                                         <NuxtLink :to="`/operador/sensoresCrud/${sensor.id}`">
-                                            <button type="button"
+                                            <button type="button" :data-tooltip-target="index"
                                                 class="py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -62,7 +62,14 @@
                                                 </svg>
                                             </button>
                                         </NuxtLink>
-                                        <button type="button" @click="deleteSensor(sensor.id)"
+                                        <div :id="index" role="tooltip"
+                                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Ver Detalhes
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                        <button type="button" :data-tooltip-target="index + 'eliminar'"
+                                            :data-modal-target="`delete-modal-` + sensor.id"
+                                            :data-modal-toggle="`delete-modal-` + sensor.id"
                                             class="ml-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -71,6 +78,15 @@
                                                     d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
                                             </svg>
                                         </button>
+
+                                        <DeleteUserModal :message="'Tens a certeza de que deseja eliminar este sensor?'"
+                                            :id="sensor.id" @confirmedDelete="deleteSensor" />
+
+                                        <div :id="index + 'eliminar'" role="tooltip"
+                                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Eliminar Sensor
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -148,6 +164,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from "~/store/auth-store.js"
 import { useToast } from 'vue-toastification'
+import DeleteUserModal from '~/components/delete-modal.vue'
 const authStore = useAuthStore()
 const toast = useToast()
 
