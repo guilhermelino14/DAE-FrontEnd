@@ -45,19 +45,32 @@
                         </div>
                         <div class="inline-flex items-center">
                             <a href="#" @click="desassociar(sensor.id)"
-                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> Desasociar </a>
+                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                Desasociar </a>
                         </div>
                     </div>
                 </li>
             </ul>
+            <div v-show="!associando" class="flex items-center justify-center">
+                <button @click="associando = true" type="button"
+                    class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <!-- Substitua o conteúdo do path pelo ícone de '+' -->
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m-6-4v8" />
+                    </svg>
+                    <span class="sr-only">Associar sensores</span>
+                </button>
+            </div>
         </div>
     </div>
-    <!-- <div
+    <div v-show="associando"
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Sensores Disponiveis</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-4">
+                <li class="pt-4 pb-4" v-for="sensor in sensores_disponiveis">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -68,21 +81,22 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                {{ sensor.nome }}
+                                {{ sensor?.nome }}
                             </p>
                             <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                {{ sensor.descricao }}
+                                {{ sensor?.descricao }}
                             </p>
                         </div>
                         <div class="inline-flex items-center">
-                            <a href="#" @click="desassociar(sensor.id)"
-                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-green-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> Associar </a>
+                            <a href="#" @click="associar(sensor.id)"
+                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-green-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                Associar </a>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-    </div> -->
+    </div>
 </template>
 
 <script setup>
@@ -99,7 +113,33 @@ const api = config.public.API_URL
 const route = useRoute()
 const id = route.params.id
 
+const associando = ref(false)
+const loading_sensores_disponiveis = ref(false)
+
 const { data: embalagem, error, refresh } = await useFetch(`${api}/embalagensProduto/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+const { data: sensores_disponiveis, error: sd_error, refresh: sd_refresh } = await useFetch(`${api}/sensores/available`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+const associar = async (sensorID) => {
+    try {
+        const response = await useFetch(`${api}/embalagensProduto/${id}/sensor/${sensorID}`, {
+            method: 'POST',
+            headers: { "Authorization": `Bearer ${authStore.token}` }
+        })
+        console.log(response.data.value)
+        if (response.status.value === "success") {
+            toast.success('Sensor associado com sucesso!')
+            sd_refresh()
+            refresh()
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro ao associar sensor!")
+        }
+    } catch {
+        toast.error("Erro ao associar sensor!")
+    }
+}
+
 
 const desassociar = async (sensorID) => {
     await useFetch(`${api}/embalagensProduto/${id}/sensor/${sensorID}`, {
@@ -108,6 +148,7 @@ const desassociar = async (sensorID) => {
     }).then(() => {
         toast.success('Sensor desassociado com sucesso!')
         refresh()
+        sd_refresh()
     }).catch(() => {
         toast.error('Erro ao desassociar sensor!')
     })
