@@ -27,12 +27,12 @@
             aria-labelledby="dropdownNotificationButton">
             <div
               class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
-              Notifications
+              Os seus produtos
             </div>
             <div class="divide-y divide-gray-100 dark:divide-gray-700">
               <div class="w-full ps-3" v-show="cartItems == ''">
                   <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400" style="    text-align-last: center;">
-                    Sem items no carrinho
+                    Sem produtos no carrinho
                   </div>
                 </div>
               <a href="#" class="flex px-4 py-3 " v-for="(item,index) in cartItems">
