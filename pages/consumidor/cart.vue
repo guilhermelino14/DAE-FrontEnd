@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                                <div class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" v-show="cartItems == null">
+                                <div class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" v-show="cartItems == ''">
                                         Sem produtos no carrinho
                                     </div>
                                 <tr v-for="(item, index) in cartItems">
