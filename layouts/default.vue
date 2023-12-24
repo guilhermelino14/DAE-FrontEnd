@@ -1,33 +1,14 @@
-<script setup>
-import { onMounted, ref, computed } from 'vue'
-import { initFlowbite } from 'flowbite'
-import { useAuthStore } from '../store/auth-store'
-
-
-const authStore = useAuthStore()
-// initialize components based on data attribute selectors
-onMounted(() => {
-  initFlowbite();
-})
-
-const logout = () => {
-  authStore.logout()
-  navigateTo("/login")
-}
-
-</script>
-
 <template>
   <div>
 
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <NuxtLink to="./" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <NuxtLink to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="logoWhite.png" class="h-8" alt="Logo" />
         </NuxtLink>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button type="button" v-show="authStore.isAuthenticated"
+          <button type="button" v-show="authStore.isAuthenticated" data-dropdown-toggle="dropdownNotification"
             class="relative inline-flex items-center p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               fill="currentColor" viewBox="0 0 18 21">
@@ -37,9 +18,72 @@ const logout = () => {
             <span class="sr-only">Cart</span>
             <div
               class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-              20</div>
+              {{ cartItemsTotal }}</div>
           </button>
-          
+
+          <!-- Dropdown -->
+          <div id="dropdownNotification"
+            class="z-20 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700"
+            aria-labelledby="dropdownNotificationButton">
+            <div
+              class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+              Notifications
+            </div>
+            <div class="divide-y divide-gray-100 dark:divide-gray-700">
+              <div class="w-full ps-3" v-show="cartItems == ''">
+                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400" style="    text-align-last: center;">
+                    Sem items no carrinho
+                  </div>
+                </div>
+              <a href="#" class="flex px-4 py-3 " v-for="(item,index) in cartItems">
+                <div class="flex-shrink-0">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Jese image">
+                  <div
+                    class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
+                    <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor" viewBox="0 0 18 18">
+                      <path
+                        d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z" />
+                      <path
+                        d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="w-full ps-3">
+                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                    {{ item.name }}
+                  </div>
+                </div>
+                <div class="w-20 ps-3" style="    align-self: center;">
+                  <button type="button" @click="removeFromCart(index)"
+                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Remove from cart</span>
+                  </button>
+                </div>
+              </a>
+            </div>
+            <nuxt-link to="/consumidor/cart">
+            <a href="#"
+              class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+              <div class="inline-flex items-center ">
+                <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                  <path
+                    d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                </svg>
+                Ir para o carrinho
+              </div>
+            </a>
+            </nuxt-link>
+          </div>
+          <!-- dropdown end -->
+
           <button v-show="authStore.isAuthenticated" type="button"
             class=" p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
@@ -124,13 +168,46 @@ const logout = () => {
     </nav>
     <div class="flex pt-5 overflow-hidden bg-gray-50 dark:bg-gray-900">
       <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-10 lg:mr-10 dark:bg-gray-900">
-        <main>
+        <main style="height: 120vh;">
           <slot />
         </main>
         <!-- footer -->
       </div>
     </div>
 
-  </div></template>
+  </div>
+</template>
 
 <style scoped></style>
+<script setup>
+import { onMounted, ref, computed } from 'vue'
+import { initFlowbite } from 'flowbite'
+import { useAuthStore } from '../store/auth-store'
+import { useCartStore } from '~/store/cart-store';
+const cartStore = useCartStore()
+
+
+const authStore = useAuthStore()
+// initialize components based on data attribute selectors
+onMounted(() => {
+  initFlowbite();
+})
+
+const logout = () => {
+  authStore.logout()
+  navigateTo("/login")
+}
+
+const cartItemsTotal = computed(() => {
+  return cartStore.getCartCount
+})
+
+const cartItems = computed(() => {
+  return cartStore.getCart
+})
+
+const removeFromCart = (item) => {
+  cartStore.removeFromCart(item)
+}
+
+</script>

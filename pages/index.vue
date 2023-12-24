@@ -42,7 +42,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-                    <a href="#"
+                    <a href="#" @click="addToCart(item)"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
                         to cart</a>
                 </div>
@@ -53,6 +53,8 @@
 </template>
 
 <script setup>
+import { useCartStore } from '~/store/cart-store';
+const cartStore = useCartStore()
 
 definePageMeta({
     middleware: 'consumidor',
@@ -66,4 +68,10 @@ const items = [
     { id: 5, name:"teste6"},
     { id: 6, name:"teste7"}
 ]
+
+const addToCart = (item) => {
+    cartStore.addToCart(item)
+}
+
+
 </script>
