@@ -63,6 +63,37 @@
             </div>
         </div>
     </div>
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="flow-root">
+            <h3 class="text-xl font-semibold dark:text-white">Stock</h3>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pt-4 pb-6" v-for="produto in produto.produtosFisicos">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Referencia: {{ produto.referencia }}
+                            </p>
+                        </div>
+                        <!-- <div class="inline-flex items-center">
+                            <a href="#"
+                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Revoke</a>
+                        </div> -->
+                    </div>
+                </li>
+                <div v-show="produto.produtosFisicos == ''">
+                    Sem Stock
+                </div>
+            </ul>
+        </div>
+    </div>
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -90,7 +121,7 @@ const loading = ref(false)
 
 const addStock = ref(0)
 
-const adicionarStock = async() => {
+const adicionarStock = async () => {
     loading.value = true
     try {
         const response = await useFetch(`${api}/produtos/${id}/addStock/${addStock.value}`, {
