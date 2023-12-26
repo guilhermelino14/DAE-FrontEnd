@@ -17,11 +17,98 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Produto</h3>
             </div>
         </div>
+        <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-12 sm:col-span-3">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+                <input type="text" name="nome" v-model="produto.nome" disabled
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="col-span-12 sm:col-span-1">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                <h3 class="text-base font-light text-gray-500 dark:text-gray-400">{{ stock }}</h3>
+            </div>
+            <div class="col-span-12 sm:col-span-2 flex justify-between items-end">
+                <div>
+                    <label for="produtos-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Aumentar stock:
+                    </label>
+                    <input type="number" v-model="addStock"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                </div>
+                <button type="button" @click="adicionarStock"
+                    class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m-6-4v8" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="col-span-6 sm:col-span-6">
+                <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                    style="margin-bottom: -15px;">Categoria</label>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <input name="categoria" v-model="produto.categoria" disabled
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="col-span-6 sm:col-span-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descricao</label>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <textarea v-model="produto.descricao" rows="4" disabled
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Chocolate branco ....." required></textarea>
+            </div>
+        </div>
     </div>
 </template>
 <script setup>
+import { ref } from 'vue'
+import { useAuthStore } from "~/store/auth-store.js"
+import { useToast } from 'vue-toastification'
+import { useRoute } from 'vue-router'
+const authStore = useAuthStore()
+const toast = useToast()
+
 definePageMeta({
     layout: 'fabricante',
     middleware: 'fabricante',
 })
+
+const config = useRuntimeConfig()
+const api = config.public.API_URL
+
+const route = useRoute()
+const id = route.params.id
+
+const { data: produto, error, refresh } = await useFetch(`${api}/produtos/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+const stock = computed(() => produto.value.produtosFisicos?.length)
+const loading = ref(false)
+
+const addStock = ref(0)
+
+const adicionarStock = async() => {
+    loading.value = true
+    try {
+        const response = await useFetch(`${api}/produtos/${id}/addStock/${addStock.value}`, {
+            method: 'POST',
+            headers: { "Authorization": `Bearer ${authStore.token}` }
+        });
+        if (response.status.value === "success") {
+            toast.success("Sucesso")
+            refresh()
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro")
+        }
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false;
+    }
+}
+
 </script>
