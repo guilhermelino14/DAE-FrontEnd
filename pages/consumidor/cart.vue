@@ -24,9 +24,10 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                                <div class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" v-show="cartItems == ''">
-                                        Sem produtos no carrinho
-                                    </div>
+                                <div class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white"
+                                    v-show="cartItems == ''">
+                                    Sem produtos no carrinho
+                                </div>
                                 <tr v-for="(item, index) in cartItems">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ item.name }}
@@ -51,14 +52,17 @@
                 </div>
             </div>
         </div>
-        <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700" style="justify-content: right;">
-        
-        <button
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button" aria-controls="default-modal" data-modal-target="default-modal" data-modal-toggle="default-modal">
-            Finalizar Compra
-        </button>
-    </div>
+        <div class="items-center justify-between block flex md:divide-x md:divide-gray-100 dark:divide-gray-700"
+            style="justify-content: right;">
+            <nuxt-link to="/consumidor/checkOut">
+                <button
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button" aria-controls="default-modal" data-modal-target="default-modal"
+                    data-modal-toggle="default-modal">
+                    Ir para o Checkout
+                </button>
+            </nuxt-link>
+        </div>
     </div>
 </template>
 <script setup>
