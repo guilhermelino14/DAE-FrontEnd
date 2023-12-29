@@ -31,11 +31,11 @@
             </div>
             <div class="divide-y divide-gray-100 dark:divide-gray-700">
               <div class="w-full ps-3" v-show="cartItems == ''">
-                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400" style="    text-align-last: center;">
-                    Sem produtos no carrinho
-                  </div>
+                <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400" style="    text-align-last: center;">
+                  Sem produtos no carrinho
                 </div>
-              <a href="#" class="flex px-4 py-3 " v-for="(item,index) in cartItems">
+              </div>
+              <a href="#" class="flex px-4 py-3 " v-for="(item, index) in cartItems">
                 <div class="flex-shrink-0">
                   <img class="rounded-full w-11 h-11"
                     src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="Jese image">
@@ -69,17 +69,17 @@
               </a>
             </div>
             <nuxt-link to="/consumidor/cart">
-            <a href="#"
-              class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
-              <div class="inline-flex items-center ">
-                <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                  <path
-                    d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
-                </svg>
-                Ir para o carrinho
-              </div>
-            </a>
+              <a href="#"
+                class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                <div class="inline-flex items-center ">
+                  <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                    <path
+                      d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                  </svg>
+                  Ir para o carrinho
+                </div>
+              </a>
             </nuxt-link>
           </div>
           <!-- dropdown end -->
@@ -104,18 +104,12 @@
               <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ authStore.user.email }}</span>
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-              </li>
+              <nuxt-link to="/consumidor/encomendas">
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Encomendas</a>
+                </li>
+              </nuxt-link>
               <li>
                 <a @click="logout()"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
