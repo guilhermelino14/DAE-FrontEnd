@@ -181,8 +181,9 @@
                                                 <span>••• 475</span>
                                             </td>
                                             <td class="p-4 whitespace-nowrap">
-                                                <span
-                                                    class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Completed</span>
+                                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500" v-show="encomenda.status == 'ENTREGUE'">{{ encomenda.status }}</span>
+                                                    <span class="bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-orange-100 dark:bg-gray-700 dark:border-orange-300 dark:text-orange-300" v-show="encomenda.status == 'PENDENTE'">{{ encomenda.status }}</span>
+                                                    <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-red-100 dark:border-red-400 dark:bg-gray-700 dark:text-red-400" v-show="encomenda.status == 'CANCELADA'">{{ encomenda.status }}</span>
                                             </td>
                                         </tr>
                                     </tbody>
