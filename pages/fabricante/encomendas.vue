@@ -89,7 +89,7 @@
                       v-show="encomenda.status == 'CANCELADA'">{{ encomenda.status }}</span>
                   </td>
                   <td class="p-4 whitespace-nowrap text-center">
-                    <NuxtLink :to="`/consumidor/encomendasCrud/${encomenda.id}`">
+                    <NuxtLink :to="`/fabricante/encomendasCrud/${encomenda.id}`">
                       <button type="button" :data-tooltip-target="index"
                         class="inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -187,7 +187,7 @@ const toast = useToast()
 
 const config = useRuntimeConfig()
 const api = config.public.API_URL
-const { data: encomendas, error, refresh } = await useFetch(`${api}/encomendas/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+const { data: encomendas, error, refresh } = await useFetch(`${api}/fabricante/encomendas/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 
 onMounted(() => {
@@ -198,4 +198,12 @@ definePageMeta({
   layout: 'fabricante',
   middleware: 'fabricante',
 })
+
+function formatDate(date) {
+    const d = new Date(date)
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
+    return `${da}/${mo}/${ye}`
+}
 </script>
