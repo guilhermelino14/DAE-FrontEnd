@@ -54,6 +54,11 @@
                                 Referencia: {{ produto.referencia }}
                             </p>
                         </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Nome: {{ produto.produto.nome }}
+                            </p>
+                        </div>
                     </div>
                 </li>
             </ul>
