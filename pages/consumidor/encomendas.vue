@@ -112,7 +112,7 @@
                                         <tr>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Transaction
+                                                Reference number
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -121,10 +121,6 @@
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Amount
-                                            </th>
-                                            <th scope="col"
-                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Reference number
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -142,9 +138,9 @@
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800">
                                         <tr v-for="(encomenda, index) in encomendas">
-                                            <td
-                                                class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                Payment from <span class="font-semibold">Bonnie Green</span>
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
+                                                style="text-align-last: center;">
+                                                {{ encomenda.id }}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -154,10 +150,7 @@
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 $2300
                                             </td>
-                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
-                                                style="text-align-last: center;">
-                                                {{ encomenda.id }}
-                                            </td>
+                                            
                                             <td
                                                 class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                                 <svg class="w-7 h-7" aria-hidden="true" enable-background="new 0 0 780 500"
