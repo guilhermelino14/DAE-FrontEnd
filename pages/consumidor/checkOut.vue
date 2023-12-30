@@ -28,7 +28,7 @@
 
                             </p>
                             <p class="text-sm pl-2 pt-2 text-gray-500 truncate dark:text-gray-400">
-                                {{ product.name }}
+                                {{ product.nome }}
                             </p>
                         </div>
                         <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

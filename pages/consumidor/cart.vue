@@ -30,7 +30,7 @@
                                 </div>
                                 <tr v-for="(item, index) in cartItems">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ item.name }}
+                                        {{ item.nome }}
                                     </td>
 
                                     <td class="p-4 whitespace-nowrap text-center">

@@ -52,7 +52,7 @@
                 </div>
                 <div class="w-full ps-3">
                   <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
-                    {{ item.name }}
+                    {{ item.nome }}
                   </div>
                 </div>
                 <div class="w-20 ps-3" style="    align-self: center;">
