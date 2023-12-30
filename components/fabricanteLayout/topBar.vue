@@ -374,13 +374,23 @@
           </nuxt-link>
         </li>
         <li>
-          <a href="#"
-            class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Produtos</a>
+          <nuxt-link to="/fabricante/produtos">
+            <a href="#"
+              class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Produtos</a>
+          </nuxt-link>
         </li>
         <li>
-          <a href="#"
-            class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Sensores
-          </a>
+          <nuxt-link to="/fabricante/sensores">
+            <a href="#"
+              class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Sensores
+            </a>
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/fabricante/encomendas">
+            <a href="#"
+              class="block px-3 py-2 text-base font-normal text-gray-600 border-b border-gray-100 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white">Encomendas</a>
+          </nuxt-link>
         </li>
       </ul>
     </div>
