@@ -64,7 +64,7 @@
                             </p>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <EditEmbalagemModal></EditEmbalagemModal>
+                            <EditEmbalagemModal :id="id"></EditEmbalagemModal>
                         </div>
                     </div>
                 </li>
