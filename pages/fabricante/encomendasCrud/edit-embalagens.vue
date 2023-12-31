@@ -37,14 +37,14 @@
                                 Embalagem</label>
                         </div>
                         <div class="col-span-12 sm:col-span-3">
-                            <select id="countries"
+                            <select id="countries" v-model="embalagemSelected"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Escolha a embalagem</option>
-                                <option v-for="embalagem in embalagens" :value="embalagem.id">{{ embalagem.nome }}</option>
+                                <option v-for="embalagem in embalagensNaoAssociadas" :value="embalagem.id">{{ embalagem.nome }}</option>
                             </select>
                         </div>
                         <div class="col-span-12 sm:col-span-3">
-                            <button type="button"
+                            <button type="button" @click="associar(embalagemSelected)"
                                 class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 14 10">
@@ -87,7 +87,7 @@
                                                 {{embalagem.largura}}
                                             </td>
                                             <td class="px-6 py-4 text-right">
-                                                <a href="#"
+                                                <a href="#" @click="remover(embalagem.id)"
                                                     class="font-medium text-red-600 dark:text-red-500 hover:underline">Remover</a>
                                             </td>
                                         </tr>
@@ -104,10 +104,13 @@
 
 <script setup>
 
-import { ref, computed } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import { useToast } from 'vue-toastification'
 import { useAuthStore } from "~/store/auth-store.js"
 const authStore = useAuthStore()
+
+
+const props = defineProps(['id'])
 
 const emit = defineEmits(['refresh'])
 const loading = ref(false)
@@ -117,7 +120,60 @@ const api = config.public.API_URL
 
 const { data: embalagens, error: error1, refresh: refresh1 } = await useFetch(`${api}/embalagensProduto/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
-const { data: embalagemsAssociads, error, refresh} = await useFetch(`${api}/embalagensProduto/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+const { data: embalagemsAssociads, error, refresh} = await useFetch(`${api}/produtos/${props.id}/embalagens`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+const embalagensNaoAssociadas = computed(()=>{
+    return embalagens.value.filter(embalagem => {
+        return !embalagemsAssociads.value.some(embalagemAssociada => embalagemAssociada.id === embalagem.id)
+    })
+})
+
+const embalagemSelected = ref(0)
+
+const associar = async(embalagemId) => {
+    if(embalagemId < 1) return
+    loading.value = true
+    try {
+        const response = await useFetch(`${api}/produtos/${props.id}/embalagens/${embalagemId}`, {
+            method: 'PATCH',
+            headers: { "Authorization": `Bearer ${authStore.token}` }
+        });
+        if (response.status.value === "success") {
+            toast.success("Sucesso")
+            refresh()
+            refresh1()
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro")
+        }
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false;
+    }
+}
+
+const remover = async(embalagemId) => {
+    loading.value = true
+    try {
+        const response = await useFetch(`${api}/produtos/${props.id}/embalagens/${embalagemId}`, {
+            method: 'DELETE',
+            headers: { "Authorization": `Bearer ${authStore.token}` }
+        });
+        if (response.status.value === "success") {
+            toast.success("Sucesso")
+            refresh()
+            refresh1()
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro")
+        }
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false;
+    }
+}
 
 if(!embalagemsAssociads){
     embalagemsAssociads=[];
