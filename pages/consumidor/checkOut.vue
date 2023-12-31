@@ -104,6 +104,8 @@ const finalizarCompra = async () => {
         });
         if (response.status.value === "success") {
             toast.success("Sucesso")
+            cartStore.clearCart()
+            navigateTo("/consumidor/encomendas")
         }
         if (response.status.value === "error") {
             toast.error("Erro")
