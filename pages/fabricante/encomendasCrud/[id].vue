@@ -30,6 +30,14 @@
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
         </div>
+        <div class="grid grid-cols-12 pt-4">
+            <div class="col-span-12  md:col-span-6 p-1">
+                <button @click="cancelarEncomenda(encomenda.id)" type="button" class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar Encomenda</button>
+            </div>
+            <div class="col-span-12 md:col-span-6 p-1">
+                <button @click="confirmarEncomenda(encomenda.id)" type="button" class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Confirmar Encomenda</button>
+            </div>
+        </div>
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -93,5 +101,27 @@ function formatDate(date) {
     const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
     return `${da}/${mo}/${ye}`
+}
+
+const confirmarEncomenda = async (id) => {
+    const { data, error } = await useFetch(`${api}/encomendas/${id}/status/CONFIRMACAO`, {
+        method: 'PUT',
+        headers: { "Authorization": `Bearer ${authStore.token}` }
+    })
+    if (data) {
+        toast.success('Encomenda confirmada com sucesso!')
+        refresh()
+    }
+}
+
+const cancelarEncomenda = async (id) => {
+    const { data, error } = await useFetch(`${api}/encomendas/${id}/status/CANCELADA`, {
+        method: 'PUT',
+        headers: { "Authorization": `Bearer ${authStore.token}` }
+    })
+    if (data) {
+        toast.success('Encomenda cancelada com sucesso!')
+        refresh()
+    }
 }
 </script>
