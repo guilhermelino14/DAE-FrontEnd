@@ -59,6 +59,9 @@
                                 Nome: {{ produto.produto.nome }}
                             </p>
                         </div>
+                        <div class="flex-1 min-w-0">
+                            <EditEmbalagemModal></EditEmbalagemModal>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -70,6 +73,7 @@ import { ref } from 'vue'
 import { useAuthStore } from "~/store/auth-store.js"
 import { useToast } from 'vue-toastification'
 import { useRoute } from 'vue-router'
+import EditEmbalagemModal from '~/pages/fabricante/encomendasCrud/edit-embalagens.vue'
 const authStore = useAuthStore()
 const toast = useToast()
 
@@ -85,7 +89,6 @@ const route = useRoute()
 const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
-
 console.log(encomenda)
 
 function formatDate(date) {
