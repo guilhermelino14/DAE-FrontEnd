@@ -60,7 +60,7 @@
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Stock : {{ stock }} Produtos Fisicos</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-6" v-for="produto in produto.produtosFisicos">
+                <li class="pt-4 pb-6" v-for="produto in produto.produtoFisicos">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"

@@ -19,7 +19,7 @@
   import { onMounted } from 'vue'
   import { initFlowbite } from 'flowbite'
   import Sidebar from '../components/operadorLayout/sidebar.vue'
-  import NavBar from '../components/fabricanteLayout/topBar.vue'
+  import NavBar from '../components/operadorLayout/topBar.vue'
   onMounted(() => {
     initFlowbite();
   })
