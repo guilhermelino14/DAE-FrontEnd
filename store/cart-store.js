@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { useStorage } from '@vueuse/core'
 import { ref, computed } from "vue"
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 export const useCartStore = defineStore('cart', () => {
     const cart = useStorage('cart', ref([]))
@@ -8,6 +10,7 @@ export const useCartStore = defineStore('cart', () => {
 
     function addToCart(item) {
         cart.value.push(item)
+        toast.success('Item added to cart')
     }
 
     function removeFromCart(index) {
