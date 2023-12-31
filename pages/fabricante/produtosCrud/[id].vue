@@ -18,16 +18,23 @@
             </div>
         </div>
         <div class="grid grid-cols-6 gap-6">
-            <div class="col-span-12 sm:col-span-3">
+            <div class="col-span-12">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                 <input type="text" name="nome" v-model="produto.nome" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
-            <div class="col-span-12 sm:col-span-1">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                <h3 class="text-base font-light text-gray-500 dark:text-gray-400">{{ stock }}</h3>
+            <div class="col-span-12">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
+                <input type="text" name="nome" v-model="produto.categoria" disabled
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
-            <div class="col-span-12 sm:col-span-2 flex justify-between items-end">
+            <div class="col-span-12">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descricao</label>
+                <textarea v-model="produto.descricao" rows="4" disabled
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Chocolate branco ....." required></textarea>
+            </div>
+            <div class="col-span-12 flex  items-end">
                 <div>
                     <label for="produtos-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Aumentar stock:
@@ -35,38 +42,23 @@
                     <input type="number" v-model="addStock"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 </div>
-                <button type="button" @click="adicionarStock"
-                    class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m-6-4v8" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="col-span-6 sm:col-span-6">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white"
-                    style="margin-bottom: -15px;">Categoria</label>
-            </div>
-            <div class="col-span-6 sm:col-span-3">
-                <input name="categoria" v-model="produto.categoria" disabled
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            </div>
-            <div class="col-span-6 sm:col-span-6">
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descricao</label>
-            </div>
-            <div class="col-span-6 sm:col-span-3">
-                <textarea v-model="produto.descricao" rows="4" disabled
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Chocolate branco ....." required></textarea>
+                <div>
+                    <button type="button" @click="adicionarStock"
+                        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m-6-4v8" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
-            <h3 class="text-xl font-semibold dark:text-white">Stock</h3>
+            <h3 class="text-xl font-semibold dark:text-white">Stock : {{ stock }} Produtos Fisicos</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                 <li class="pt-4 pb-6" v-for="produto in produto.produtosFisicos">
                     <div class="flex items-center space-x-4">

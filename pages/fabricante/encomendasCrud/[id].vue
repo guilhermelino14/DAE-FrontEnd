@@ -17,20 +17,16 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Encomenda</h3>
             </div>
         </div>
-        <div class="grid grid-cols-6 gap-6">
-            <div class="col-span-12 sm:col-span-3">
+        <div class="grid grid-cols-12 gap-6 pt-2">
+            <div class="col-span-12">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data</label>
                 <input type="text" name="nome" :value="formatDate(encomenda.data)" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
 
-
-            <div class="col-span-6 sm:col-span-6">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white"
-                    style="margin-bottom: -15px;">Status</label>
-            </div>
-            <div class="col-span-6 sm:col-span-3">
-                <input name="categoria" v-model="encomenda.status" disabled
+            <div class="col-span-12">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                <input type="text" name="nome" v-model="encomenda.status" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
         </div>
