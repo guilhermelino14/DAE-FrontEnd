@@ -66,7 +66,7 @@
         <div class="items-center pt-4 justify-between block flex md:divide-x md:divide-gray-100 dark:divide-gray-700"
             style="justify-content: right;">
             <nuxt-link to="/consumidor/checkOut">
-                <button
+                <button @click="finalizarCompra()"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button" aria-controls="default-modal" data-modal-target="default-modal"
                     data-modal-toggle="default-modal">
@@ -78,10 +78,38 @@
 </template>
 <script setup>
 import { useCartStore } from '~/store/cart-store';
+import { useAuthStore } from "~/store/auth-store.js"
+import { useToast } from 'vue-toastification'
+const authStore = useAuthStore()
 const cartStore = useCartStore()
+const config = useRuntimeConfig()
+const toast = useToast()
+const api = config.public.API_URL
 definePageMeta({
     middleware: 'consumidor',
 
 })
 const cartItems = cartStore.getCart
+
+const finalizarCompra = async () => {
+    // get cartItems and remove stock from the object
+    cartItems.forEach(item => {
+        delete item.stock
+    });
+    try {
+        const response = await useFetch(`${api}/encomendas/`, {
+            method: 'POST',
+            headers: { "Authorization": `Bearer ${authStore.token}` },
+            body: JSON.stringify(cartItems),
+        });
+        if (response.status.value === "success") {
+            toast.success("Sucesso")
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 </script>
