@@ -17,8 +17,18 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Sensores</h3>
             </div>
         </div>
-        {{ sensor.nome }}
-        {{ sensor.descricao }}
+        <div class="grid grid-cols-1 gap-6">
+            <div class="col-span-1">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do sensor</label>
+                <input type="text" name="nome" v-model="sensor.nome" disabled
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+            <div class="col-span-1">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de sensor</label>
+                <input type="text" name="nome" v-model="sensor.descricao" disabled
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+        </div>
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -42,21 +52,12 @@
                                 {{ observacao.data }}
                             </p>
                         </div>
-                        <div class="inline-flex items-center">
-                            <a href="#"
-                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Revoke</a>
-                        </div>
                     </div>
                 </li>
                 <div v-show="sensor.observacoes == ''">
                     Sem observações
                 </div>
             </ul>
-            <div v-show="sensor.observacoes != ''">
-                <button
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">See
-                    more</button>
-            </div>
         </div>
     </div>
 </template>
