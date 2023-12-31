@@ -20,7 +20,7 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
                     <h3 class="text-xl font-semibold dark:text-white">
-                        Embalagens
+                        Adicionar Embalagem ao Produto Fisico
                     </h3>
 
                     <button type="button"
@@ -30,20 +30,15 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-12 sm:col-span-6">
-                            <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adicionar
-                                Embalagem</label>
-                        </div>
-                        <div class="col-span-12 sm:col-span-3">
+                    <div class="grid grid-cols-12 gap-3">
+                        <div class="col-span-10 sm:col-span-10">
                             <select id="countries"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Escolha a embalagem</option>
                                 <option v-for="embalagem in embalagens" :value="embalagem.id">{{ embalagem.nome }}</option>
                             </select>
                         </div>
-                        <div class="col-span-12 sm:col-span-3">
+                        <div class="col-span-2 sm:col-span-2">
                             <button type="button"
                                 class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -53,7 +48,9 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="col-span-12 sm:col-span-6">
+                    </div>
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-12 sm:col-span-12">
                             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
