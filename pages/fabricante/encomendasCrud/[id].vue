@@ -64,7 +64,7 @@
                             </p>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <EditEmbalagemModal :id="id"></EditEmbalagemModal>
+                            <EditEmbalagemModal :id="produto.referencia"></EditEmbalagemModal>
                         </div>
                     </div>
                 </li>
