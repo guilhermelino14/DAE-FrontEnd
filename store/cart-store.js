@@ -9,13 +9,8 @@ export const useCartStore = defineStore('cart', () => {
     const total = useStorage('total', ref(0))
 
     function addToCart(item) {
-        const exists = cart.value.find(i => i.id === item.id)
-        if (exists) {
-            toast.error("Já existe no carrinho")
-            return
-        }
         cart.value.push(item)
-        toast.success("Adicionado ao carrinho")
+        toast.success('Item added to cart')
     }
 
     function removeFromCart(index) {
