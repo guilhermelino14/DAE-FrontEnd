@@ -35,34 +35,59 @@
             </div>
         </div>
     </div>
-    <div
-        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="flow-root">
-            <h3 class="text-xl font-semibold dark:text-white">Produtos</h3>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-6" v-for="produto in encomenda.produtosFisicos">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                Referencia: {{ produto.referencia }}
-                            </p>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                Nome: {{ produto.produto.nome }}
-                            </p>
+    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <h3 class="text-xl font-semibold dark:text-white">Produtos</h3>
+        <div class="flex flex-col mt-6">
+                    <div class="overflow-x-auto rounded-lg">
+                        <div class="inline-block min-w-full align-middle">
+                            <div class="overflow-hidden shadow sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
+                                        <tr>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Reference number
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Nome do produto
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Descrição
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Categoria
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white dark:bg-gray-800">
+                                        <tr v-for="produto in encomenda.produtosFisicos ">
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
+                                                style="text-align-last: center;">
+                                                {{ produto.referencia }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ produto.produto.nome }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ produto.produto.descricao }}
+                                            </td>
+                                            
+                                            <td
+                                                class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ produto.produto.categoria  }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
+                </div>
     </div>
 </template>
 <script setup>
