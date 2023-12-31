@@ -189,6 +189,7 @@ onMounted(() => {
 
 const logout = () => {
   authStore.logout()
+  cartStore.clearCart()
   navigateTo("/login")
 }
 
