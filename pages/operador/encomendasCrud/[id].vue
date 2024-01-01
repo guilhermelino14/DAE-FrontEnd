@@ -89,7 +89,6 @@ const route = useRoute()
 const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
-console.log(encomenda)
 
 function formatDate(date) {
     const d = new Date(date)
