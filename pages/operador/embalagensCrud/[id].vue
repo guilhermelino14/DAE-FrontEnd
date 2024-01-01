@@ -2,7 +2,7 @@
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 mb-3">
         <div class="grid grid-cols-12 border-b border-s-white ">
             <div class="col-span-12 md:col-span-1 sm:col-span-2">
-                <NuxtLink to="/fabricante/embalagens">
+                <NuxtLink to="/operador/embalagens">
                     <button type="button"
                         class="mb-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
