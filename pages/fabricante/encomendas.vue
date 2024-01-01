@@ -42,6 +42,11 @@
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-gray-800">
+                <tr v-show="encomendas == ''">
+                  <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" colspan="3">
+                    Não existem encomendas
+                  </td>
+                </tr>
                 <tr v-for="(encomenda, index) in encomendas">
                   <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
                     style="text-align-last: center;">

@@ -25,7 +25,7 @@
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <h3 style="white-space: pre-wrap" class="mt-5 mb-6 text-lg text-gray-500 dark:text-gray-400">{{message}}</h3>
-                    <a @click="deleteConfirmation" :data-modal-hide="`delete-modal-`+id"
+                    <a @click="deleteConfirmation" :data-modal-hide="`delete-modal-`+id" href="#"
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-800">
                         Sim, tenho a certeza
                     </a>

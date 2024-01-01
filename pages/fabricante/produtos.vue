@@ -47,6 +47,11 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
+                                <tr v-show="produtos == ''">
+                  <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" colspan="3">
+                    Não existem produtos
+                  </td>
+                </tr>
                                 <tr v-for="(produto, index) in produtos">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ produto.nome }}

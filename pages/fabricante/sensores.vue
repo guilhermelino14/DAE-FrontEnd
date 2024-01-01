@@ -48,6 +48,12 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
+                                <tr v-show="sensores == ''">
+                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white"
+                                        colspan="3">
+                                        Não existem sensores
+                                    </td>
+                                </tr>
                                 <tr v-for="(sensor, index) in sensores">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ sensor.nome }}
