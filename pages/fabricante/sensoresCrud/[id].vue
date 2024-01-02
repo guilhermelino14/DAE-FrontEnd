@@ -49,7 +49,7 @@
                                 {{ observacao.observacao }}
                             </p>
                             <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                {{ observacao.data }}
+                                {{formatDate(observacao.data) }}
                             </p>
                         </div>
                     </div>
@@ -77,6 +77,14 @@ const route = useRoute()
 const id = route.params.id
 
 const { data: sensor, error, refresh } = await useFetch(`${api}/sensores/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+function formatDate(date) {
+    const d = new Date(date)
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
+    return `${da}/${mo}/${ye}`
+}
 
 definePageMeta({
     layout: 'fabricante',
