@@ -19,46 +19,37 @@
         </div>
         <div class="grid grid-cols-1 gap-6">
             <div class="col-span-1">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do sensor</label>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do
+                    sensor</label>
                 <input type="text" name="nome" v-model="sensor.nome" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
             <div class="col-span-1">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de sensor</label>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de
+                    sensor</label>
                 <input type="text" name="nome" v-model="sensor.descricao" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
         </div>
     </div>
     <div
-        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="flow-root">
-            <h3 class="text-xl font-semibold dark:text-white">Observações</h3>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-6" v-for="observacao in sensor.observacoes">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                                <path
-                                    d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                {{ observacao.observacao }}
-                            </p>
-                            <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                {{formatDate(observacao.data) }}
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <div v-show="sensor.observacoes == ''">
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Observações</h3>
+        </div>
+
+        <div v-show="sensor.observacoes == ''">
                     Sem observações
                 </div>
-            </ul>
-        </div>
+        <ol class="relative border-l border-gray-200 dark:border-gray-700">
+            <li class="mb-10 ml-4" v-for="observacao in sensor.observacoes">
+                <div
+                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700">
+                </div>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ formatDate(observacao.data) }}</time>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ observacao.observacao }}</h3>
+            </li>
+        </ol>
     </div>
 </template>
 
@@ -81,9 +72,12 @@ const { data: sensor, error, refresh } = await useFetch(`${api}/sensores/${id}`,
 function formatDate(date) {
     const d = new Date(date)
     const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
-    const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d)
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
-    return `${da}/${mo}/${ye}`
+    const ho = new Intl.DateTimeFormat('pt', { hour: '2-digit' }).format(d)
+    const mi = new Intl.DateTimeFormat('pt', { minute: '2-digit' }).format(d)
+    const se = new Intl.DateTimeFormat('pt', { second: '2-digit' }).format(d)
+    return `${da} ${mo} ${ye} -- ${ho}:${mi}:${se}`
 }
 
 definePageMeta({
