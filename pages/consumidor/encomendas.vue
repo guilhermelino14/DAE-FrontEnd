@@ -212,6 +212,9 @@ definePageMeta({
     middleware: 'consumidor',
 
 })
+onMounted(() => {
+  initFlowbite()
+})
 
 
 function formatDate(date) {

@@ -128,9 +128,6 @@ const deleteEmbalagem = async (id) => {
     console.log(error)
   }
 }
-onMounted(() => {
-  initFlowbite();
-})
 
 onMounted(() => {
   initFlowbite()
