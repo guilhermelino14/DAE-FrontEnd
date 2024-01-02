@@ -54,6 +54,10 @@ const loginForm = ref({
     password: ''
 })
 
+onMounted(() => {
+    document.getElementById("user-dropdown").classList.add("hidden")
+})
+
 
 const login = async (event) => {
     event.preventDefault();
