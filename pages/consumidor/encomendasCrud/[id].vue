@@ -31,60 +31,78 @@
             </div>
         </div>
     </div>
-    <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <h3 class="text-xl font-semibold dark:text-white">Produtos</h3>
         <div class="flex flex-col mt-6">
-                    <div class="overflow-x-auto rounded-lg">
-                        <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden shadow sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th scope="col"
-                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Reference number
-                                            </th>
-                                            <th scope="col"
-                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Nome do produto
-                                            </th>
-                                            <th scope="col"
-                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Descrição
-                                            </th>
-                                            <th scope="col"
-                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Categoria
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white dark:bg-gray-800">
-                                        <tr v-for="produto in encomenda.produtosFisicos ">
-                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
-                                                style="text-align-last: center;">
-                                                {{ produto.referencia }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                {{ produto.produto.nome }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ produto.produto.descricao }}
-                                            </td>
-                                            
-                                            <td
-                                                class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                {{ produto.produto.categoria  }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <div class="overflow-x-auto rounded-lg">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden shadow sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Reference number
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Nome do produto
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Descrição
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Categoria
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800">
+                                <tr v-for="produto in encomenda.produtosFisicos ">
+                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
+                                        style="text-align-last: center;">
+                                        {{ produto.referencia }}
+                                    </td>
+                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        {{ produto.produto.nome }}
+                                    </td>
+                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ produto.produto.descricao }}
+                                    </td>
+
+                                    <td
+                                        class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        {{ produto.produto.categoria }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
+    <!-- <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Observações</h3>
+        </div>
+
+        <div v-show="sensor.observacoes == ''">
+                    Sem observações
+                </div>
+        <ol class="relative border-l border-gray-200 dark:border-gray-700">
+            <li class="mb-10 ml-4" v-for="observacao in sensor.observacoes">
+                <div
+                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700">
+                </div>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ formatDate(observacao.data) }}</time>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ observacao.observacao }}</h3>
+            </li>
+        </ol>
+    </div> -->
 </template>
 <script setup>
 import { ref } from 'vue'
