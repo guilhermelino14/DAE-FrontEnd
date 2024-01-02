@@ -84,17 +84,17 @@
             </div>
         </div>
     </div>
-    <!-- <div
+    <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
         <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Observações</h3>
         </div>
 
-        <div v-show="sensor.observacoes == ''">
+        <div v-show="observacoes == ''">
                     Sem observações
                 </div>
         <ol class="relative border-l border-gray-200 dark:border-gray-700">
-            <li class="mb-10 ml-4" v-for="observacao in sensor.observacoes">
+            <li class="mb-10 ml-4" v-for="observacao in observacoes">
                 <div
                     class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700">
                 </div>
@@ -102,7 +102,7 @@
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ observacao.observacao }}</h3>
             </li>
         </ol>
-    </div> -->
+    </div>
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -123,6 +123,8 @@ const route = useRoute()
 const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+const { data: observacoes, error:error1, refresh:refresh1 } = await useFetch(`${api}/encomendas/${id}/observacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 console.log(encomenda)
 
