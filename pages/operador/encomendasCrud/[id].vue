@@ -32,10 +32,14 @@
         </div>
         <div class="grid grid-cols-12 pt-4">
             <div class="col-span-12  md:col-span-6 p-1">
-                <button v-if="encomenda.status != 'ENTREGUE'" @click="cancelarEncomenda(encomenda.id)" type="button" class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar Encomenda</button>
+                <button v-if="encomenda.status != 'ENTREGUE'" @click="cancelarEncomenda(encomenda.id)" type="button"
+                    class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar
+                    Encomenda</button>
             </div>
             <div class="col-span-12 md:col-span-6 p-1">
-                <button v-if="encomenda.status != 'ENTREGUE'" @click="entreguarEncomenda(encomenda.id)" type="button" class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Entreguar Encomenda</button>
+                <button v-if="encomenda.status != 'ENTREGUE'" @click="entreguarEncomenda(encomenda.id)" type="button"
+                    class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Entreguar
+                    Encomenda</button>
             </div>
         </div>
     </div>
@@ -61,6 +65,45 @@
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
                                 Nome: {{ produto.produto.nome }}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="flow-root">
+            <h3 class="text-xl font-semibold dark:text-white">Embalagem de transporte</h3>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pt-4 pb-6 text-xs" v-show="encomenda.embalagensTransporte == ''">
+                    <button @click="" type="button"
+                        class="h-full w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Associar embalagem de transporte</button>
+                </li>
+                <li class="pt-4 pb-6" v-for="embalagem in encomenda.embalagensTransporte">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Nome: {{ embalagem.nome }}
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Altura: {{ embalagem.altura }}
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Largura: {{ embalagem.largura }}
                             </p>
                         </div>
                     </div>
