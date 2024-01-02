@@ -67,10 +67,21 @@
 </template>
 <script setup>
 import { useCartStore } from '~/store/cart-store';
+import { useToast } from 'vue-toastification'
 const cartStore = useCartStore()
+const toast = useToast()
+
 definePageMeta({
     middleware: 'consumidor',
 
+})
+
+onMounted(() => {
+    // if cartStore.getCart is empty return to /
+    if (cartStore.getCart == '') {
+        toast.error('Carrinho vazio')
+        navigateTo('/')
+    }
 })
 
 const cartItems = cartStore.getCart
