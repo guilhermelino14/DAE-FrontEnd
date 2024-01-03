@@ -41,13 +41,15 @@
                     class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar
                     Encomenda</button>
             </div>
-            <div class="col-span-12 md:col-span-6 p-1"  v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'EM_TRANSITO'">
+            <div class="col-span-12 md:col-span-6 p-1"
+                v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'EM_TRANSITO'">
                 <button @click="entreguarEncomenda(encomenda.id)" type="button"
                     class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Entreguar
                     Encomenda</button>
             </div>
-            <div class="col-span-12 md:col-span-6 p-1" v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'CONFIRMACAO'">
-                <button  @click="emTransitoEncomenda(encomenda.id)" type="button"
+            <div class="col-span-12 md:col-span-6 p-1"
+                v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'CONFIRMACAO'">
+                <button @click="emTransitoEncomenda(encomenda.id)" type="button"
                     class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Enviar
                     Encomenda</button>
             </div>
@@ -87,8 +89,16 @@
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Embalagem de transporte</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li v-show="encomenda.embalagensTransporte == ''">
+                    <select v-model="embalagemSelected"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Escolha a embalagem</option>
+                        <option v-for="embalagem in embalagensTransporte" :value="embalagem.id">{{ embalagem.nome }}
+                        </option>
+                    </select>
+                </li>
                 <li class="pt-4 pb-6 text-xs" v-show="encomenda.embalagensTransporte == ''">
-                    <button @click="" type="button"
+                    <button @click="associarEmbalagemTransporte" type="button"
                         class="h-full w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Associar embalagem de transporte</button>
                 </li>
@@ -141,17 +151,20 @@ const api = config.public.API_URL
 const route = useRoute()
 const id = route.params.id
 
+const embalagemSelected = ref({})
+const { data: embalagensTransporte, error: error1, refresh: refresh1 } = await useFetch(`${api}/embalagensTransporte/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
-    if(res.data.value == null){
+    if (res.data.value == null) {
         toast.error('Essa encomenda não existe!')
         navigateTo('/operador/encomendas')
     }
 })
 
 onMounted(() => {
-    if(encomenda.value.status == 'PENDENTE'){
+    if (encomenda.value.status == 'PENDENTE') {
         toast.error('Não pode aceder a esta encomenda!')
         navigateTo('/operador/encomendas')
     }
@@ -193,6 +206,17 @@ const cancelarEncomenda = async (id) => {
     })
     if (data) {
         toast.success('Encomenda cancelada com sucesso!')
+        refresh()
+    }
+}
+
+const associarEmbalagemTransporte = async () => {
+    const { data, error } = await useFetch(`${api}/embalagensTransporte/${embalagemSelected.value}/addEncomenda/${id}`, {
+        method: 'POST',
+        headers: { "Authorization": `Bearer ${authStore.token}` }
+    })
+    if (data) {
+        toast.success('Embalagem associada com sucesso!')
         refresh()
     }
 }

@@ -32,7 +32,7 @@
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-12 gap-6">
                         <div class="col-span-10">
-                            <select id="countries" v-model="embalagemSelected"
+                            <select v-model="embalagemSelected"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Escolha a embalagem</option>
                                 <option v-for="embalagem in embalagensNaoAssociadas" :value="embalagem.id">{{ embalagem.nome }}</option>
