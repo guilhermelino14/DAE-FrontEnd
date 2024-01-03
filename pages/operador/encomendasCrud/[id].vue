@@ -143,6 +143,19 @@ const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
+    if(res.data.value == null){
+        toast.error('Essa encomenda não existe!')
+        navigateTo('/operador/encomendas')
+    }
+})
+
+onMounted(() => {
+    if(encomenda.value.status == 'PENDENTE'){
+        toast.error('Não pode aceder a esta encomenda!')
+        navigateTo('/operador/encomendas')
+    }
+})
 function formatDate(date) {
     const d = new Date(date)
     const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)

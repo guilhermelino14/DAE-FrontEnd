@@ -98,7 +98,19 @@ const route = useRoute()
 const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
-console.log(encomenda)
+
+useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
+    if (res.data.value == null) {
+        toast.error('Essa encomenda não existe!')
+        navigateTo('/fabricante/encomendas')
+    }
+})
+onMounted(() => {
+    if (encomenda.value.status != 'PENDENTE') {
+        toast.error('Não pode aceder a esta encomenda!')
+        navigateTo('/fabricante/encomendas')
+    }
+})
 
 function formatDate(date) {
     const d = new Date(date)
