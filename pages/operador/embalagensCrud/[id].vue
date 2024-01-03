@@ -137,6 +137,12 @@ const { data: embalagem, error, refresh } = await useFetch(`${api}/embalagensTra
 
 const { data: sensores_disponiveis, error: sd_error, refresh: sd_refresh } = await useFetch(`${api}/sensores/available`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+useFetch(`${api}/embalagensTransporte/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
+    if(res.data.value == null){
+        toast.error('Embalagem não existe!')
+        navigateTo('/operador/embalagens')
+    }
+})
 const associar = async (sensorID) => {
     try {
         const response = await useFetch(`${api}/embalagensTransporte/${id}/sensor/${sensorID}`, {
