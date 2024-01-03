@@ -131,6 +131,13 @@ const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${
 
 const { data: observacoes, error:error1, refresh:refresh1 } = await useFetch(`${api}/encomendas/${id}/observacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
+    if (res.data.value == null) {
+        toast.error('Encomenda não encontrada')
+        navigateTo('/consumidor/encomendas')
+    }
+})
+
 console.log(encomenda)
 
 function formatDate(date) {

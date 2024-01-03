@@ -108,6 +108,12 @@ const id = route.params.id
 
 const { data: produto, error, refresh } = await useFetch(`${api}/produtos/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+useFetch(`${api}/produtos/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((response) => {
+    if(response.data.value == null){
+        toast.error("Produto não existe")
+        navigateTo('/fabricante/produtos')
+    }
+})
 const stock = computed(() => produto.value.produtosFisicos?.length)
 const loading = ref(false)
 

@@ -69,6 +69,12 @@ const id = route.params.id
 
 const { data: sensor, error, refresh } = await useFetch(`${api}/sensores/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+useFetch(`${api}/sensores/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((response) => {
+    if(response.data.value == null){
+        toast.error("Sensor não existe")
+        navigateTo('/fabricante/sensores')
+    }
+})
 function formatDate(date) {
     const d = new Date(date)
     const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
