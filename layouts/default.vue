@@ -8,6 +8,41 @@
           <img src="logoWhite.png" class="h-8" alt="Logo" />
         </NuxtLink>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
+          <button id="dropdownNotificationButton2" v-show="authStore.isAuthenticated" data-dropdown-toggle="dropdownNotification2"
+          class=" p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+            type="button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 14 20">
+              <path
+                d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
+            </svg>
+          </button>
+
+          <!-- Dropdown menu -->
+          <div id="dropdownNotification2"
+            class="z-20 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700"
+            aria-labelledby="dropdownNotificationButton2">
+            <div
+              class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+              Notificações
+            </div>
+            <div class="divide-y divide-gray-100 dark:divide-gray-700" v-for="notificacao in notificacoes" >
+              <a href="#" class="flex px-4 py-3 dark:bg-gray-700 hover:dark:bg-gray-500" v-if="!notificacao.lida" @click="setNotificacaoToLida(notificacao.id)">
+                <div class="w-full ps-3">
+                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">{{ notificacao.mensagem }}</div>
+                  <div class="text-xs text-blue-600 dark:text-blue-500">{{ convertDate(notificacao.data)}}</div>
+                </div>
+              </a>
+              <a href="#" class="flex px-4 py-3  hover:dark:bg-gray-500" v-if="notificacao.lida" >
+                <div class="w-full ps-3">
+                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">{{ notificacao.mensagem }}</div>
+                  <div class="text-xs text-blue-600 dark:text-blue-500">{{ convertDate(notificacao.data)}}</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
           <button type="button" v-show="authStore.isAuthenticated" data-dropdown-toggle="dropdownNotification"
             class="relative inline-flex items-center p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +55,9 @@
               class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
               {{ cartItemsTotal }}</div>
           </button>
+
+
+          
 
           <!-- Dropdown -->
           <div id="dropdownNotification"
@@ -169,8 +207,7 @@
       </div>
     </div>
 
-  </div>
-</template>
+</div></template>
 
 <style scoped></style>
 <script setup>
@@ -178,11 +215,15 @@ import { onMounted, ref, computed } from 'vue'
 import { initFlowbite } from 'flowbite'
 import { useAuthStore } from '../store/auth-store'
 import { useCartStore } from '~/store/cart-store';
+
 const cartStore = useCartStore()
-
-
 const authStore = useAuthStore()
-// initialize components based on data attribute selectors
+const config = useRuntimeConfig()
+const api = config.public.API_URL
+
+const { data: notificacoes, error, refresh } = await useFetch(`${api}/consumidor/${authStore.user.username}/notificacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
+
 onMounted(() => {
   initFlowbite();
 })
@@ -205,4 +246,45 @@ const removeFromCart = (item) => {
   cartStore.removeFromCart(item)
 }
 
+// convert the date from the api to a message like "a few moments ago" or "2 days ago" etc
+const convertDate = (date) => {
+  const now = new Date()
+  const dateToConvert = new Date(date)
+  const diff = now - dateToConvert
+  const seconds = Math.floor(diff / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  const months = Math.floor(days / 30)
+  const years = Math.floor(months / 12)
+
+  if (seconds < 60) {
+    return "a few moments ago"
+  } else if (minutes < 60) {
+    return `${minutes} minutes ago`
+  } else if (hours < 24) {
+    return `${hours} hours ago`
+  } else if (days < 30) {
+    return `${days} days ago`
+  } else if (months < 12) {
+    return `${months} months ago`
+  } else {
+    return `${years} years ago`
+  }
+}
+
+function setNotificacaoToLida(id) {
+  fetch(`${api}/consumidor/${authStore.user.username}/notificacoes/${id}/lida`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${authStore.token}`
+    },
+    body: JSON.stringify({
+      lida: true
+    })
+  }).then(() => {
+    refresh()
+  })
+} 
 </script>
