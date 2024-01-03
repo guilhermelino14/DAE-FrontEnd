@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <NuxtLink to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -10,13 +8,16 @@
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
           <button id="dropdownNotificationButton2" v-show="authStore.isAuthenticated" data-dropdown-toggle="dropdownNotification2"
-          class=" p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+          class="relative inline-flex items-center p-2 text-gray-500 rounded-lg sm:flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
             type="button">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
               viewBox="0 0 14 20">
               <path
                 d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
             </svg>
+            <div v-if="notificacaoNotLidaCount > 0"
+              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+              {{ notificacaoNotLidaCount }}</div>
           </button>
 
           <!-- Dropdown menu -->
@@ -51,7 +52,7 @@
                 d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
             </svg>
             <span class="sr-only">Cart</span>
-            <div
+            <div v-if="cartItemsTotal > 0"
               class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
               {{ cartItemsTotal }}</div>
           </button>
@@ -223,7 +224,9 @@ const api = config.public.API_URL
 
 const { data: notificacoes, error, refresh } = await useFetch(`${api}/consumidor/${authStore.user.username}/notificacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
-
+const notificacaoNotLidaCount = computed(() => {
+  return notificacoes.value.filter(notificacao => !notificacao.lida).length
+})
 onMounted(() => {
   initFlowbite();
 })
