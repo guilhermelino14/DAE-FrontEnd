@@ -20,7 +20,7 @@
                         <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">{{ embalagem.nome }}</h3>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="grid grid-cols-12 gap-6 pt-2">
@@ -114,6 +114,39 @@
             </ul>
         </div>
     </div>
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="flow-root">
+            <h3 class="text-xl font-semibold dark:text-white">Produtos Associados</h3>
+            <p class="text-xs" v-show="embalagem.produtoFisicos == ''">Sem produtos associados</p>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pt-4 pb-4" v-for="produto in embalagem.produtoFisicos ">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                <path
+                                    d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                {{ produto.referencia }}
+                            </p>
+                            <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                                {{ produto.produto?.nome ?? "" }}
+                            </p>
+                        </div>
+                        <div class="inline-flex items-center">
+                            <a @click="removerProduto(produto.referencia)"
+                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                Remover </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -163,6 +196,7 @@ const associar = async (sensorID) => {
     }
 }
 
+console.log(embalagem)
 
 const desassociar = async (sensorID) => {
     await useFetch(`${api}/embalagensProduto/${id}/sensor/${sensorID}`, {
@@ -175,6 +209,24 @@ const desassociar = async (sensorID) => {
     }).catch(() => {
         toast.error('Erro ao desassociar sensor!')
     })
+}
+
+const removerProduto = async (produtoId) => {
+    try {
+        const response = await useFetch(`${api}/produtos/${produtoId}/embalagens/${id}`, {
+            method: 'DELETE',
+            headers: { "Authorization": `Bearer ${authStore.token}` }
+        });
+        if (response.status.value === "success") {
+            toast.success("Sucesso")
+            refresh()
+        }
+        if (response.status.value === "error") {
+            toast.error("Erro")
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 definePageMeta({
