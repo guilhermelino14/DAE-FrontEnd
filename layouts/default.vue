@@ -28,6 +28,13 @@
               class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
               Notificações
             </div>
+            <div class="divide-y divide-gray-100 dark:divide-gray-700" v-if="notificacoes == ''">
+              <a class="flex px-4 py-3 dark:bg-gray-700">
+                <div class="w-full ps-3">
+                  <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Sem notificações</div>
+                </div>
+              </a>
+            </div>
             <div class="divide-y divide-gray-100 dark:divide-gray-700" v-for="notificacao in notificacoes" >
               <a href="#" class="flex px-4 py-3 dark:bg-gray-700 hover:dark:bg-gray-500" v-if="!notificacao.lida" @click="setNotificacaoToLida(notificacao.id)">
                 <div class="w-full ps-3">
