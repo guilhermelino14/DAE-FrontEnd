@@ -37,19 +37,23 @@
         </div>
         <div class="grid grid-cols-12 pt-4">
             <div class="col-span-12  md:col-span-6 p-1">
-                <button @click="cancelarEncomenda(encomenda.id)" type="button" class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar Encomenda</button>
+                <button @click="cancelarEncomenda(encomenda.id)" type="button"
+                    class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar
+                    Encomenda</button>
             </div>
             <div class="col-span-12 md:col-span-6 p-1" v-if="encomenda.status == 'PENDENTE'">
-                <button @click="confirmarEncomenda(encomenda.id)" type="button" class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Confirmar Encomenda</button>
+                <button @click="confirmarEncomenda(encomenda.id)" type="button"
+                    class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Confirmar
+                    Encomenda</button>
             </div>
         </div>
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
-            <h3 class="text-xl font-semibold dark:text-white">Produtos</h3>
+            <h3 class="text-xl font-semibold dark:text-white">Embalagens de produto</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-6" v-for="produto in encomenda.produtosFisicos">
+                <li class="pt-4 pb-6" v-for="embalagensProduto in encomenda.embalagensProduto">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -60,17 +64,70 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                Referencia: {{ produto.referencia }}
+                                {{ embalagensProduto.nome }}
                             </p>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                Nome: {{ produto.produto.nome }}
+                                Altura: {{ embalagensProduto.altura }}cm
                             </p>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <EditEmbalagemModal :id="produto.referencia"></EditEmbalagemModal>
+                            Largura: {{ embalagensProduto.largura }}cm
                         </div>
+                        <div class="flex-0 min-w-0">
+                            <nuxt-link :to="'/fabricante/embalagensCrud/' + embalagensProduto.id">
+                                <button type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1" />
+                                    </svg>
+                                    <span class="sr-only">Icon description</span>
+                                </button>
+                            </nuxt-link>
+                        </div>
+
+
+                        <!-- <div class="flex-1 min-w-0">
+                            <EditEmbalagemModal :id="produto.referencia"></EditEmbalagemModal>
+                        </div> -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="flow-root">
+            <h3 class="text-xl font-semibold dark:text-white">Embalagens de Transporte</h3>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pt-4 pb-6" v-for="embalagemTransporte in encomenda.embalagensTransporte">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                {{ embalagemTransporte.nome }}
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Altura: {{ embalagemTransporte.altura }}cm
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            Largura: {{ embalagemTransporte.largura }}cm
+                        </div>
+                        <!-- <div class="flex-1 min-w-0">
+                            <EditEmbalagemModal :id="produto.referencia"></EditEmbalagemModal>
+                        </div> -->
                     </div>
                 </li>
             </ul>
