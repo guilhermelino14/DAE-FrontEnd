@@ -99,7 +99,7 @@
         </div>
     </div>
     <div
-        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800" v-show="encomenda.embalagensTransporte != ''">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Embalagens de Transporte</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
