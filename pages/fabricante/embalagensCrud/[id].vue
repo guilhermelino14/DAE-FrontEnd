@@ -35,6 +35,10 @@
                 <input type="text" name="nome" v-model="embalagem.largura" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
+            <div class="col-span-12">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de Produtos na embalagem</label>
+                <div>{{ countProdutos(embalagem.produtoFisicos) }}</div>
+            </div>
         </div>
     </div>
     <div
@@ -54,32 +58,32 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                {{ sensor.nome }}
+                                Referencia: {{ sensor.id }}
                             </p>
                             <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
                                 {{ sensor.descricao }}
                             </p>
                         </div>
-                        <div class="inline-flex items-center">
+                        <!-- <div class="inline-flex items-center">
                             <a href="#" @click="desassociar(sensor.id)"
                                 class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-white-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-red-600 dark:text-white-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                 Desasociar </a>
-                        </div>
+                        </div> -->
                     </div>
                 </li>
             </ul>
-            <div v-show="!associando" class="flex items-center justify-center">
+            <!--<div v-show="!associando" class="flex items-center justify-center">
                 <button @click="associando = true" type="button"
                     class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 10">
-                        <!-- Substitua o conteúdo do path pelo ícone de '+' -->
+                        
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M1 5h12m-6-4v8" />
                     </svg>
                     <span class="sr-only">Associar sensores</span>
                 </button>
-            </div>
+            </div>-->
         </div>
     </div>
     <div v-show="associando"
@@ -114,7 +118,7 @@
             </ul>
         </div>
     </div>
-    <div
+    <!-- <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Produtos Associados</h3>
@@ -146,7 +150,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script setup>
@@ -229,6 +233,9 @@ const removerProduto = async (produtoId) => {
     }
 }
 
+const countProdutos = (produtos) => {
+    return Object.keys(produtos).length;
+}
 definePageMeta({
     layout: 'fabricante',
     middleware: 'fabricante',

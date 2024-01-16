@@ -9,7 +9,7 @@
 
 
 
-    <NewEmbalagem @refresh="refresh"></NewEmbalagem>
+    <!-- <NewEmbalagem @refresh="refresh"></NewEmbalagem> -->
 
     <!-- Table -->
     <div class="flex flex-col mt-6">
