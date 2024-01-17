@@ -99,6 +99,26 @@
                                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Criar Nova Encomenda</h3>
                             </div>
                         </div>
+                        <div class="flex items-center mb-4">
+                            <input id="default-checkbox" type="checkbox" :value="sensorOnEmbalagemEncomenda"
+                                v-on:change="sensorOnEmbalagemEncomenda = !sensorOnEmbalagemEncomenda"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="default-checkbox"
+                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adicionar sensor a
+                                embalagem de transporte ?</label>
+                        </div>
+                        <div v-if="sensorOnEmbalagemEncomenda">
+                            <label for="countries"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar o tipo de Sensor</label>
+                            <select id="countries" v-model="sensorType"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="TEMPERATURA">TEMPERATURA</option>
+                                <option value="HUMIDADE">HUMIDADE</option>
+                            </select>
+                        </div>
+
+                        {{ sensorOnEmbalagemEncomenda }}
+                        {{ sensorType }}
 
 
                     </div>
@@ -120,6 +140,8 @@ const sensor_id = ref('')
 const sensor = ref('')
 const sensorNotFound = ref(false)
 const new_observacao = ref('')
+const sensorOnEmbalagemEncomenda = ref(false)
+const sensorType = ref('TEMPERATURA')
 definePageMeta({
     layout: ''
 })
@@ -145,12 +167,13 @@ const searchSensor = async () => {
 const createObservacao = async () => {
     await useFetch(`${api}/observacoes/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
     const response = await useFetch(`${api}/observacoes/`, {
-            method: 'POST',
-            headers: { "Authorization": `Bearer ${authStore.token}` },
-            body: {
-                "observacao": new_observacao.value,
-                "sensor": sensor_id.value},
-        });
+        method: 'POST',
+        headers: { "Authorization": `Bearer ${authStore.token}` },
+        body: {
+            "observacao": new_observacao.value,
+            "sensor": sensor_id.value
+        },
+    });
     if (response.status.value === "success") {
         searchSensor()
     }
