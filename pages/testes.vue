@@ -310,9 +310,11 @@ const searchSensor = async () => {
     if (data.data.value == null) {
         sensorNotFound.value = true
         sensor.value = ''
+        new_observacao.value = ''
     } else {
         sensorNotFound.value = false
         sensor.value = data
+        new_observacao.value = ''
     }
 }
 
@@ -346,5 +348,23 @@ function formatDate(date) {
     return `${da} ${mo} ${ye} -- ${ho}:${mi}:${se}`
 }
 
+
+const criarEncomenda = async ()  =>{
+    const response = await useFetch(`${api}/encomendas/`, {
+        method: 'POST',
+        headers: { "Authorization": `Bearer ${authStore.token}` },
+        body: {
+            "has_sensor": sensorOnEmbalagemEncomenda.value,
+            "typeOfSensor": sensorType.value,
+            "produtos": cart.value
+            
+        },
+    });
+    if (response.status.value === "success") {
+        cart.value = []
+        sensorOnEmbalagemEncomenda.value = false
+        sensorType.value = 'TEMPERATURA'
+    }
+}
 
 </script>
