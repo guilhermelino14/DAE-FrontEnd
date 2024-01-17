@@ -109,18 +109,162 @@
                         </div>
                         <div v-if="sensorOnEmbalagemEncomenda">
                             <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar o tipo de Sensor</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar o tipo de
+                                Sensor</label>
                             <select id="countries" v-model="sensorType"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="TEMPERATURA">TEMPERATURA</option>
                                 <option value="HUMIDADE">HUMIDADE</option>
                             </select>
                         </div>
-
-                        {{ sensorOnEmbalagemEncomenda }}
-                        {{ sensorType }}
-
-
+                        <div
+                            class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                            <!-- Card header -->
+                            <div class="items-center justify-between lg:flex">
+                                <div class="mb-4 lg:mb-0">
+                                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Produtos disponiveis
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Table -->
+                            <div class="flex flex-col mt-6">
+                                <div class="overflow-x-auto rounded-lg">
+                                    <div class="inline-block min-w-full align-middle">
+                                        <div class="overflow-hidden shadow sm:rounded-lg">
+                                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                                    <tr>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Nome
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Descricao
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            quantidade
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Sensor
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Ação
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white dark:bg-gray-800">
+                                                    <tr v-for="produto in produtos">
+                                                        <td
+                                                            class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                                            Payment from <span class="font-semibold">{{ produto.nome }}</span>
+                                                        </td>
+                                                        <td
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            {{ produto.descricao }}
+                                                        </td>
+                                                        <td
+                                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                            {{ produto.quantidade }}
+                                                        </td>
+                                                        <td v-if="produto.typeOfSensor != null"
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            {{ produto.typeOfSensor }}
+                                                        </td>
+                                                        <td v-if="produto.typeOfSensor == null"
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            ---
+                                                        </td>
+                                                        <td>
+                                                            <button @click="() => cart.push(produto)" type="button"
+                                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                                Adicionar a encomenda</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="cart.length > 0"
+                            class="p-4 mt-5 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                            <!-- Card header -->
+                            <div class="items-center justify-between lg:flex">
+                                <div class="mb-4 lg:mb-0">
+                                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Produtos Na encomenda
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Table -->
+                            <div class="flex flex-col mt-6">
+                                <div class="overflow-x-auto rounded-lg">
+                                    <div class="inline-block min-w-full align-middle">
+                                        <div class="overflow-hidden shadow sm:rounded-lg">
+                                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                                    <tr>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Nome
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Descricao
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            quantidade
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Sensor
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                            Ação
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white dark:bg-gray-800">
+                                                    <tr v-for="(produto, index) in cart">
+                                                        <td
+                                                            class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                                            Payment from <span class="font-semibold">{{ produto.nome }}</span>
+                                                        </td>
+                                                        <td
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            {{ produto.descricao }}
+                                                        </td>
+                                                        <td
+                                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                            {{ produto.quantidade }}
+                                                        </td>
+                                                        <td v-if="produto.typeOfSensor != null"
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            {{ produto.typeOfSensor }}
+                                                        </td>
+                                                        <td v-if="produto.typeOfSensor == null"
+                                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                            ---
+                                                        </td>
+                                                        <td>
+                                                            <button @click="removeFromCart(index)" type="button"
+                                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                                                Remover</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </main>
                 <!-- footer -->
@@ -142,6 +286,7 @@ const sensorNotFound = ref(false)
 const new_observacao = ref('')
 const sensorOnEmbalagemEncomenda = ref(false)
 const sensorType = ref('TEMPERATURA')
+const cart = ref([])
 definePageMeta({
     layout: ''
 })
@@ -151,6 +296,7 @@ onMounted(() => {
 })
 
 // const { data: sensor, error, refresh } = await useFetch(`${api}/sensores/`+sensor_id.value, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+const { data: produtos, error, refresh } = await useFetch(`${api}/produtos`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 // on click search sensor with id
 const searchSensor = async () => {
@@ -162,6 +308,10 @@ const searchSensor = async () => {
         sensorNotFound.value = false
         sensor.value = data
     }
+}
+
+const removeFromCart = (index) => {
+    cart.value.splice(index, 1)
 }
 
 const createObservacao = async () => {
