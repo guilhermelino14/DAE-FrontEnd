@@ -412,8 +412,8 @@ const criarEncomenda = async () => {
         body: {
             "has_sensor": sensorOnEmbalagemEncomenda.value,
             "typeOfSensor": sensorType.value,
-            "produtos": cart.value,
-            "consumidor_username": consumidorSelected.value
+            "consumidor_username": consumidorSelected.value,
+            "produtos": cart.value
         },
     });
     if (response.status.value === "success") {
