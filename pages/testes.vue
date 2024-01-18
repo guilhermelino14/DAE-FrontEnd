@@ -113,6 +113,16 @@
                                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Criar Nova Encomenda</h3>
                             </div>
                         </div>
+                        <div>
+                            <label for="consumidor"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar o
+                                Consumidor</label>
+                            <select id="consumidor" v-model="consumidorSelected"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option v-for="consumidor in consumidores" :value="consumidor.username">{{ consumidor.name }}
+                                </option>
+                            </select>
+                        </div>
                         <div class="flex items-center mb-4">
                             <input id="default-checkbox" type="checkbox" :value="sensorOnEmbalagemEncomenda"
                                 v-on:change="sensorOnEmbalagemEncomenda = !sensorOnEmbalagemEncomenda"
@@ -313,6 +323,8 @@ const new_observacao = ref({
 const sensorOnEmbalagemEncomenda = ref(false)
 const sensorType = ref('TEMPERATURA')
 const cart = ref([])
+const consumidorSelected = ref('')
+
 definePageMeta({
     layout: ''
 })
@@ -329,6 +341,8 @@ onMounted(() => {
 // const { data: sensor, error, refresh } = await useFetch(`${api}/sensores/`+sensor_id.value, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 const { data: produtos, error, refresh } = await useFetch(`${api}/produtos`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+const { data: consumidores, error: error1, refresh: refresh1 } = await useFetch(`${api}/consumidor/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+console.log("ola", consumidores)
 // on click search sensor with id
 const searchSensor = async () => {
     const data = await useFetch(`${api}/sensores/` + sensor_id.value, { headers: { "Authorization": `Bearer ${authStore.token}` } })
@@ -377,14 +391,17 @@ function formatDate(date) {
 
 
 const criarEncomenda = async () => {
+    if (!consumidorSelected.value) return
+    if(!sensorOnEmbalagemEncomenda.value) sensorType.value = null
+    console.log("request", sensorOnEmbalagemEncomenda.value, sensorType.value, cart.value, consumidorSelected.value)
     const response = await useFetch(`${api}/encomendas/`, {
         method: 'POST',
         headers: { "Authorization": `Bearer ${authStore.token}` },
         body: {
             "has_sensor": sensorOnEmbalagemEncomenda.value,
             "typeOfSensor": sensorType.value,
-            "produtos": cart.value
-
+            "produtos": cart.value,
+            "consumidor_username": consumidorSelected.value
         },
     });
     if (response.status.value === "success") {
