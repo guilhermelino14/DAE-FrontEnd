@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="grid grid-cols-12 pt-4">
-            <div class="col-span-12  md:col-span-6 p-1">
+            <div class="col-span-12  md:col-span-6 p-1" v-if="encomenda.status == 'PENDENTE'">
                 <button @click="cancelarEncomenda(encomenda.id)" type="button"
                     class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar
                     Encomenda</button>
@@ -163,10 +163,6 @@ useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${auth
     }
 })
 onMounted(() => {
-    if (encomenda.value.status != 'PENDENTE') {
-        toast.error('Não pode aceder a esta encomenda!')
-        navigateTo('/fabricante/encomendas')
-    }
 })
 
 function formatDate(date) {
@@ -178,7 +174,7 @@ function formatDate(date) {
 }
 
 const confirmarEncomenda = async (id) => {
-    const { data, error } = await useFetch(`${api}/encomendas/${id}/status/CONFIRMACAO`, {
+    const { data, error } = await useFetch(`${api}/encomendas/${id}/status/PARA_RECOLHA`, {
         method: 'PUT',
         headers: { "Authorization": `Bearer ${authStore.token}` }
     })

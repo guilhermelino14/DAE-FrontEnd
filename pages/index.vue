@@ -67,8 +67,11 @@
                                                     class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500"
                                                     v-show="encomenda.status == 'ENTREGUE'">{{ encomenda.status }}</span>
                                                 <span
+                                                    class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500"
+                                                    v-show="encomenda.status == 'PARA_RECOLHA'">A ESPERA DE RECOLHA</span>
+                                                <span
                                                     class="bg-purple-100 text-purple-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-purple-100 dark:bg-gray-700 dark:border-purple-500 dark:text-purple-400"
-                                                    v-show="encomenda.status == 'CONFIRMACAO'">EM CONFIRMACÃO</span>
+                                                    v-show="encomenda.status == 'RECOLHIDA'">RECOLHIDA</span>
                                                 <span
                                                     class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-yellow-100 dark:border-yellow-400 dark:bg-gray-700 dark:text-yellow-400"
                                                     v-show="encomenda.status == 'EM_TRANSITO'">EM TRANSITO</span>
@@ -120,7 +123,7 @@ definePageMeta({
 
 })
 onMounted(() => {
-  initFlowbite()
+    initFlowbite()
 })
 
 

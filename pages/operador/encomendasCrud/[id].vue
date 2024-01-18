@@ -1,7 +1,7 @@
 <template>
     <div
         class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 pb-2 mb-3">
-        <NuxtLink to="/operador/encomendas">
+        <NuxtLink to="/operador">
             <button type="button"
                 class="mb-2 py-1.5 px-3 inline-flex items-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 dark:bg-gray-700">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -37,8 +37,19 @@
         </div>
         <div class="grid grid-cols-12 pt-4">
             <div class="col-span-12  md:col-span-6 p-1">
-                <button v-if="encomenda.status != 'ENTREGUE'" @click="cancelarEncomenda(encomenda.id)" type="button"
+                <button v-if="encomenda.status != 'ENTREGUE' && encomenda.status != 'EM_TRANSITO'"
+                    @click="cancelarEncomenda(encomenda.id)" type="button"
                     class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar
+                    Encomenda</button>
+
+                <button v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'EM_TRANSITO'"
+                    @click="" type="button"
+                    class="h-full w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Tentativa de entregar encomenda falhada</button>
+            </div>
+            <div class="col-span-12 md:col-span-6 p-1"
+                v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'PARA_RECOLHA'">
+                <button @click="confirmarEncomenda(encomenda.id)" type="button"
+                    class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recolher
                     Encomenda</button>
             </div>
             <div class="col-span-12 md:col-span-6 p-1"
@@ -48,14 +59,14 @@
                     Encomenda</button>
             </div>
             <div class="col-span-12 md:col-span-6 p-1"
-                v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'CONFIRMACAO'">
+                v-if="encomenda.status != 'ENTREGUE' && encomenda.status == 'RECOLHIDA'">
                 <button @click="emTransitoEncomenda(encomenda.id)" type="button"
                     class="h-full w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Enviar
                     Encomenda</button>
             </div>
         </div>
     </div>
-    <div
+    <!-- <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Produtos</h3>
@@ -83,25 +94,48 @@
                 </li>
             </ul>
         </div>
-    </div>
-    <div
+    </div> -->
+    <div v-if="encomenda.embalagensProduto != ''"
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="flow-root">
             <h3 class="text-xl font-semibold dark:text-white">Embalagem de transporte</h3>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li v-show="encomenda.embalagensTransporte == ''">
-                    <select v-model="embalagemSelected"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Escolha a embalagem</option>
-                        <option v-for="embalagem in embalagensTransporte" :value="embalagem.id">{{ embalagem.nome }}
-                        </option>
-                    </select>
+
+                <li class="pt-4 pb-6" v-for="embalagem in encomenda.embalagensProduto">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Nome: {{ embalagem.nome }}
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Altura: {{ embalagem.altura }}
+                            </p>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Largura: {{ embalagem.largura }}
+                            </p>
+                        </div>
+                    </div>
                 </li>
-                <li class="pt-4 pb-6 text-xs" v-show="encomenda.embalagensTransporte == ''">
-                    <button @click="associarEmbalagemTransporte" type="button"
-                        class="h-full w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                        Associar embalagem de transporte</button>
-                </li>
+            </ul>
+        </div>
+    </div>
+    <div v-if="encomenda.embalagensTransporte != ''"
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="flow-root">
+            <h3 class="text-xl font-semibold dark:text-white">Embalagem de transporte</h3>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+
                 <li class="pt-4 pb-6" v-for="embalagem in encomenda.embalagensTransporte">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
@@ -210,6 +244,16 @@ const cancelarEncomenda = async (id) => {
     }
 }
 
+const confirmarEncomenda = async (id) => {
+    const { data, error } = await useFetch(`${api}/encomendas/${id}/status/RECOLHIDA`, {
+        method: 'PUT',
+        headers: { "Authorization": `Bearer ${authStore.token}` }
+    })
+    if (data) {
+        toast.success('Encomenda confirmada com sucesso!')
+        refresh()
+    }
+}
 const associarEmbalagemTransporte = async () => {
     const { data, error } = await useFetch(`${api}/embalagensTransporte/${embalagemSelected.value}/addEncomenda/${id}`, {
         method: 'POST',
