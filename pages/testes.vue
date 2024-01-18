@@ -323,9 +323,11 @@
 <script setup>
 import { useAuthStore } from "~/store/auth-store.js"
 import { initFlowbite } from 'flowbite'
+import { useToast } from 'vue-toastification'
 const authStore = useAuthStore()
 const config = useRuntimeConfig()
 const api = config.public.API_URL
+const toast = useToast()
 
 const sensor_id = ref('')
 const sensor = ref('')
@@ -423,6 +425,7 @@ const criarEncomenda = async () => {
         },
     });
     if (response.status.value === "success") {
+        toast.success('Encomenda criada com sucesso')
         cart.value = []
         sensorOnEmbalagemEncomenda.value = false
         sensorType.value = 'TEMPERATURA'
