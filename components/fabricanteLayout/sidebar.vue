@@ -29,17 +29,16 @@
               <nuxt-link to="/fabricante">
                 <a href="#"
                   class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
-                  <svg
-                    class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 10h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H17M1 10v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M1 10l2-9h12l2 9" />
                   </svg>
-                  <span class="ml-3" sidebar-toggle-item>Dashboard</span>
+                  <span class="ml-3" sidebar-toggle-item>Encomendas</span>
                 </a>
               </nuxt-link>
             </li>
-            <li>
+            <!-- <li>
               <nuxt-link to="/fabricante/embalagens">
                 <a href="#"
                   class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
@@ -53,7 +52,7 @@
                   <span class="ml-3" sidebar-toggle-item>Embalagens</span>
                 </a>
               </nuxt-link>
-            </li>
+            </li> -->
             <li>
               <nuxt-link to="/fabricante/produtos">
                 <a href="#"
@@ -80,7 +79,7 @@
                 </a>
               </nuxt-link>
             </li> -->
-            <li>
+            <!-- <li>
               <nuxt-link to="/fabricante/encomendas">
                 <a href="#"
                   class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
@@ -92,7 +91,7 @@
                   <span class="ml-3" sidebar-toggle-item>Encomendas</span>
                 </a>
               </nuxt-link>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
