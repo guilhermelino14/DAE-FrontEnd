@@ -69,47 +69,50 @@
                                     </li>
                                 </ol>
                             </div>
-                            <label for="name" class=" mt-5 block text-lg font-medium text-gray-900 dark:text-white">Criar
-                                nova observacao</label>
+                            <div>
+                                <label for="name"
+                                    class=" mt-5 block text-lg font-medium text-gray-900 dark:text-white">Criar
+                                    nova observacao</label>
 
-                            <div class="grid grid-cols-12 gap-6 pt-3">
-                                <div class="col-span-12">
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Texto da
-                                        observação</label>
-                                    <input type="text" id="simple-search" v-model="new_observacao.observacao"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Escrever uma nova observação" required>
-                                </div>
+                                <div class="grid grid-cols-12 gap-6 pt-3">
+                                    <div class="col-span-12">
+                                        <label for="name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Texto da
+                                            observação</label>
+                                        <input type="text" id="simple-search" v-model="new_observacao.observacao"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Escrever uma nova observação" required>
+                                    </div>
 
-                                <div class="col-span-12">
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor da
-                                        observacao</label>
-                                    <input type="number" v-model="new_observacao.value"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Valor medido" required>
-                                </div>
-                                <div class="col-span-12">
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unidade de
-                                        medida</label>
-                                    <input type="text" v-model="new_observacao.medida"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Unidade de medida" required>
-                                </div>
+                                    <div class="col-span-12">
+                                        <label for="name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor da
+                                            observacao</label>
+                                        <input type="number" v-model="new_observacao.value"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Valor medido" required>
+                                    </div>
+                                    <div class="col-span-12">
+                                        <label for="name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unidade de
+                                            medida</label>
+                                        <input type="text" v-model="new_observacao.medida"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Unidade de medida" required>
+                                    </div>
 
-                            </div>
-                            <div style="    text-align: right;">
-                                <button @click="createObservacao()"
-                                    class="px-5 py-2.5 mt-5 text-sm font-medium text-center inline-flex items-center text-white bg-green-700 rounded-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                    <svg class="w-4 h-4 me-2 -ms-1 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                    Criar Observação
-                                </button>
+                                </div>
+                                <div style="    text-align: right;">
+                                    <button @click="createObservacao()"
+                                        class="px-5 py-2.5 mt-5 text-sm font-medium text-center inline-flex items-center text-white bg-green-700 rounded-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                        <svg class="w-4 h-4 me-2 -ms-1 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 1v16M1 9h16" />
+                                        </svg>
+                                        Criar Observação
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
