@@ -342,9 +342,11 @@ definePageMeta({
 })
 
 const clearNewObservacao = () => {
-    clearNewObservacao.value = 0
-    clearNewObservacao.medida = ''
-    clearNewObservacao.observacao = ''
+    new_observacao.value = {
+        value: 0,
+        medida: '',
+        observacao: ''
+    }
 }
 onMounted(() => {
     initFlowbite();
@@ -387,6 +389,7 @@ const createObservacao = async () => {
     });
     if (response.status.value === "success") {
         searchSensor()
+        clearNewObservacao()
     }
 }
 
