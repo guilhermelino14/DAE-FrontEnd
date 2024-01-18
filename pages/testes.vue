@@ -69,12 +69,25 @@
                                     </li>
                                 </ol>
                             </div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Criar
+                                nova observacao</label>
                             <div class="flex items-center pt-4">
                                 <label for="simple-search" class="sr-only">Create nova observacao</label>
+
                                 <div class="relative w-full">
-                                    <input type="text" id="simple-search" v-model="new_observacao"
+                                    <input type="text" id="simple-search" v-model="new_observacao.observacao"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Escrever uma nova observação" required>
+                                </div>
+                                <div class="relative w-full">
+                                    <input type="number" v-model="new_observacao.value"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Valor medido" required>
+                                </div>
+                                <div class="relative w-full">
+                                    <input type="text" v-model="new_observacao.medida"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Unidade de medida" required>
                                 </div>
                                 <button @click="createObservacao()"
                                     class="p-2.5 ms-2 text-sm font-medium text-white bg-green-700 rounded-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
@@ -85,6 +98,7 @@
                                     </svg>
                                     <span class="sr-only">Search</span>
                                 </button>
+
                             </div>
                         </div>
 
@@ -160,7 +174,8 @@
                                                     <tr v-for="produto in produtos">
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Payment from <span class="font-semibold">{{ produto.nome }}</span>
+                                                            Payment from <span class="font-semibold">{{ produto.nome
+                                                            }}</span>
                                                         </td>
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -234,7 +249,8 @@
                                                     <tr v-for="(produto, index) in cart">
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Payment from <span class="font-semibold">{{ produto.nome }}</span>
+                                                            Payment from <span class="font-semibold">{{ produto.nome
+                                                            }}</span>
                                                         </td>
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -266,10 +282,10 @@
                             </div>
                         </div>
 
-                        <div style="text-align: right" v-if="cart.length >0">
+                        <div style="text-align: right" v-if="cart.length > 0">
                             <button @click="criarEncomenda()" type="button"
-                                                                class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
-                                                                Criar Encomenda</button>
+                                class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+                                Criar Encomenda</button>
                         </div>
                     </div>
                 </main>
@@ -289,7 +305,11 @@ const api = config.public.API_URL
 const sensor_id = ref('')
 const sensor = ref('')
 const sensorNotFound = ref(false)
-const new_observacao = ref('')
+const new_observacao = ref({
+    value: 0,
+    medida: '',
+    observacao: ''
+})
 const sensorOnEmbalagemEncomenda = ref(false)
 const sensorType = ref('TEMPERATURA')
 const cart = ref([])
@@ -297,6 +317,11 @@ definePageMeta({
     layout: ''
 })
 
+const clearNewObservacao = () => {
+    clearNewObservacao.value = 0
+    clearNewObservacao.medida = ''
+    clearNewObservacao.observacao = ''
+}
 onMounted(() => {
     initFlowbite();
 })
@@ -310,11 +335,11 @@ const searchSensor = async () => {
     if (data.data.value == null) {
         sensorNotFound.value = true
         sensor.value = ''
-        new_observacao.value = ''
+        clearNewObservacao()
     } else {
         sensorNotFound.value = false
         sensor.value = data
-        new_observacao.value = ''
+        clearNewObservacao()
     }
 }
 
@@ -328,7 +353,9 @@ const createObservacao = async () => {
         method: 'POST',
         headers: { "Authorization": `Bearer ${authStore.token}` },
         body: {
-            "observacao": new_observacao.value,
+            "value": new_observacao.value.value,
+            "medida": new_observacao.value.medida,
+            "observacao": new_observacao.value.observacao,
             "sensor": sensor_id.value
         },
     });
@@ -349,7 +376,7 @@ function formatDate(date) {
 }
 
 
-const criarEncomenda = async ()  =>{
+const criarEncomenda = async () => {
     const response = await useFetch(`${api}/encomendas/`, {
         method: 'POST',
         headers: { "Authorization": `Bearer ${authStore.token}` },
@@ -357,7 +384,7 @@ const criarEncomenda = async ()  =>{
             "has_sensor": sensorOnEmbalagemEncomenda.value,
             "typeOfSensor": sensorType.value,
             "produtos": cart.value
-            
+
         },
     });
     if (response.status.value === "success") {
