@@ -146,6 +146,7 @@
                                 class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adicionar sensor a
                                 embalagem de transporte ?</label>
                         </div>
+                        <time class="text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Todas as embalagens de transporte incluem Sensor GPS</time>
                         <div v-if="sensorOnEmbalagemEncomenda">
                             <label for="countries"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar o tipo de
