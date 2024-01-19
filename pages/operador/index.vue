@@ -7,8 +7,19 @@
       </div>
     </div>
 
-    <div class="items-center justify-between block sm:flex" style="justify-content: right;">
-      <div class="pl-2">
+    <div class="items-center justify-between block sm:flex" >
+      <div>
+        <select id="default" @change="changeEncomendas" v-model="encomendaFilter"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="ALL" selected>ALL</option>
+          <option value="PARA_RECOLHA">A ESPERA DE RECOLHA</option>
+          <option value="RECOLHIDA">RECOLHIDA</option>
+          <option value="EM_TRANSITO">EM TRANSITO</option>
+          <option value="ENTREGUE">ENTREGUE</option>
+          <option value="CANCELADA">CANCELADA</option>
+        </select>
+      </div>
+      <div class="pl-2" style="justify-content: right;">
         <button @click="exportEncomendaCSV()"
           class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
           type="button">
@@ -21,7 +32,7 @@
         </button>
       </div>
     </div>
-
+    
     <div class="flex flex-col mt-6">
       <div class="overflow-x-auto rounded-lg">
         <div class="inline-block min-w-full align-middle">
@@ -132,6 +143,8 @@ const toast = useToast()
 
 const config = useRuntimeConfig()
 const api = config.public.API_URL
+const encomendaFilter = ref('ALL')
+
 const { data: encomendas, error, refresh } = await useFetch(`${api}/operador/encomendas/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 
@@ -170,4 +183,17 @@ const exportEncomendaCSV = async () => {
     URL.revokeObjectURL(link.href);
 }
 
+const changeEncomendas = async () => {
+    await refresh()
+    // get the encomendaFilter
+    const filter = encomendaFilter.value
+    // if the filter is not all then filter the encomendas
+    if (filter != 'ALL') {
+        encomendas.value = encomendas.value.filter((encomenda) => encomenda.status == filter)
+    }
+    else {
+        refresh()
+    }
+
+}
 </script>
