@@ -40,7 +40,8 @@
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
             <div v-if="produto.typeOfSensor" class="col-span-12">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo do sensor</label>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo do
+                    sensor</label>
                 <input type="text" name="nome" v-model="produto.typeOfSensor" disabled
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             </div>
@@ -67,10 +68,10 @@
     </div>
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="flow-root">
-            <h3 class="text-xl font-semibold dark:text-white">Stock : {{ stock }} Produtos Fisicos</h3>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pt-4 pb-6" v-for="produto in produto.produtoFisicos">
+        <div class="flow-root" >
+            <h3 class="text-xl font-semibold dark:text-white">Regras</h3>
+            <ul  v-if="produto.sensorRoles.length > 0" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <li class="pt-4 pb-6" v-for="rule in produto.sensorRoles">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -81,26 +82,26 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                Referencia: {{ produto.referencia }}
+                                Tipo de sensor: {{ rule.typeOfSensor }}
+                            </p>
+                            <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                Maximo: {{ rule.val_max }} Minimo {{ rule.val_min }}
                             </p>
                         </div>
-                        <div class="flex-1 min-w-0" v-if="produto.encomenda != null">
-                            <nuxt-link :to="'/fabricante/encomendasCrud/'+produto.encomenda.id">
-                                <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                    Associado a encomenda numero {{ produto.encomenda.id }}
-                                </p>
-                            </nuxt-link>
-                        </div>
-                        <!-- <div class="inline-flex items-center">
-                            <a href="#"
-                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Revoke</a>
-                        </div> -->
                     </div>
                 </li>
-                <div v-show="produto.produtosFisicos == ''">
-                    Sem Stock
-                </div>
             </ul>
+        </div>
+        <div class="flex items-center justify-center">
+            <button type="button" @click="newRule(id)"
+                class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-green">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 5h12m-6-4v8" />
+                </svg>
+                <span class="sr-only">Adicionar Regra</span>
+            </button>
         </div>
     </div>
 </template>
@@ -155,6 +156,10 @@ const adicionarStock = async () => {
     } finally {
         loading.value = false;
     }
+}
+
+const newRule = (id) => {
+    navigateTo({path: "/fabricante/produtosCrud/new-rule", query: {id: id}})
 }
 
 </script>
