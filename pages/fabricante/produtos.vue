@@ -6,20 +6,46 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Produtos</h3>
             </div>
         </div>
-        <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700"
+        <div class="items-center justify-between block sm:flex"
             style="justify-content: right;">
-            <NuxtLink to="/fabricante/produtosCrud/new-produto">
-                <button
-                    class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            <div>
+                <button @click="importProdutoCSV()"
+                    class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button">
-                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 1v16M1 9h16" />
-            </svg>
-                    Criar Produto
+                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                    </svg>
+                    Importar Produtos CSV
                 </button>
-            </NuxtLink>
+            </div>
+            <div class="pl-2">
+                <button @click="exportProdutoCSV()"
+                    class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    type="button">
+                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 12V1m0 0L4 5m4-4 4 4m3 5v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                    </svg>
+                    Exportar Produtos CSV
+                </button>
+            </div>
+            <div class="pl-2">
+                <NuxtLink to="/fabricante/produtosCrud/new-produto">
+                    <button
+                        class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">
+                        <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 1v16M1 9h16" />
+                        </svg>
+                        Criar Produto
+                    </button>
+                </NuxtLink>
+            </div>
         </div>
         <div class="flex flex-col mt-6">
             <div class="overflow-x-auto rounded-lg">
@@ -48,10 +74,11 @@
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
                                 <tr v-show="produtos == ''">
-                  <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white" colspan="3">
-                    Não existem produtos
-                  </td>
-                </tr>
+                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white"
+                                        colspan="3">
+                                        Não existem produtos
+                                    </td>
+                                </tr>
                                 <tr v-for="(produto, index) in produtos">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ produto.nome }}
@@ -150,5 +177,56 @@ const deleteProduto = async (id) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+const exportProdutoCSV = async () =>{
+    const response = await useFetch(`${api}/csv/produtos`, {
+        method: 'GET',
+        headers: { "Authorization": `Bearer ${authStore.token}` },
+    });
+    if (response.status.value !== "success") {
+        toast.error("Erro ao exportar produtos")
+        return
+    }
+    const string = await response.data.value
+    const link = document.createElement('a');
+    const file = new Blob([string], { type: 'text/csv' });
+    link.href = URL.createObjectURL(file);
+    link.download = 'produtos.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+const importProdutoCSV = async () => {
+    const file = document.createElement('input');
+    file.type = 'file';
+    file.accept = '.csv';
+    file.click();
+    file.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const text = e.target.result;
+            const lines = text.split('\n');
+            lines.shift();
+            const csv = lines.join('\n');
+            const newFile = new Blob([csv], { type: 'text/csv' });
+            const response = await useFetch(`${api}/csv/produtos`, {
+                method: 'POST',
+                headers: { 
+                    "Authorization": `Bearer ${authStore.token}`,
+                    "Content-Type": "text/plain"},
+                body: newFile
+            });
+            if (response.status.value !== "success") {
+                toast.error("Erro ao importar sensores")
+                return
+            }
+            toast.success("Sucesso")
+            refresh()
+        };
+        reader.readAsText(file);
+    });
+    
 }
 </script>

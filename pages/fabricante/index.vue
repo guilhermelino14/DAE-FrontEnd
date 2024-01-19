@@ -7,6 +7,20 @@
       </div>
     </div>
 
+    <div class="items-center justify-between block sm:flex" style="justify-content: right;">
+      <div class="pl-2">
+        <button @click="exportEncomendaCSV()"
+          class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+          type="button">
+          <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 16 16">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 12V1m0 0L4 5m4-4 4 4m3 5v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+          </svg>
+          Exportar Encomendas CSV
+        </button>
+      </div>
+    </div>
 
     <div class="flex flex-col mt-6">
       <div class="overflow-x-auto rounded-lg">
@@ -136,5 +150,23 @@ function formatDate(date) {
   const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
   const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
   return `${da}/${mo}/${ye}`
+}
+
+const exportEncomendaCSV = async () => {
+  const response = await useFetch(`${api}/csv/encomendas`, {
+        method: 'GET',
+        headers: { "Authorization": `Bearer ${authStore.token}` },
+    });
+    if (response.status.value !== "success") {
+        toast.error("Erro ao exportar sensores")
+        return
+    }
+    const string = await response.data.value
+    const link = document.createElement('a');
+    const file = new Blob([string], { type: 'text/csv' });
+    link.href = URL.createObjectURL(file);
+    link.download = 'encomendas.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
 }
 </script>
