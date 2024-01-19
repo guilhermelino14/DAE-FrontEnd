@@ -9,20 +9,33 @@
 
 
 
-        <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700"
-            style="justify-content: right;">
-            <NuxtLink to="/fabricante/sensoresCrud/new-sensor">
-                <button
-                    class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <div class="items-center justify-between block sm:flex " style="justify-content: right;">
+            <div>
+                <button @click="exportSensorCSV()"
+                    class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button">
-                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 16 16">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
+                            d="M8 12V1m0 0L4 5m4-4 4 4m3 5v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
                     </svg>
-                    Criar Sensor
+                    Exportar Sensores CSV
                 </button>
-            </NuxtLink>
+            </div>
+            <div class="pl-2">
+                <NuxtLink to="/fabricante/sensoresCrud/new-sensor">
+                    <button
+                        class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">
+                        <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 1v16M1 9h16" />
+                        </svg>
+                        Criar Sensor
+                    </button>
+                </NuxtLink>
+            </div>
         </div>
 
         <!-- Table -->
@@ -35,11 +48,11 @@
                                 <tr>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Nome
+                                        id
                                     </th>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Descricao
+                                        Tipo de Sensor
                                     </th>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white">
@@ -56,10 +69,10 @@
                                 </tr>
                                 <tr v-for="(sensor, index) in sensores">
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ sensor.nome }}
+                                        {{ sensor.id }}
                                     </td>
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ sensor.descricao }}
+                                        {{ sensor.typeOfSensor }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-center">
                                         <NuxtLink :to="`/fabricante/sensoresCrud/${sensor.id}`">
@@ -140,7 +153,7 @@ const deleteSensor = async (id) => {
     }
 }
 
-onMounted(()=>{
+onMounted(() => {
     initFlowbite()
 })
 
@@ -148,4 +161,22 @@ definePageMeta({
     layout: 'fabricante',
     middleware: 'fabricante',
 })
+
+const exportSensorCSV = async() => {
+    const response = await useFetch(`${api}/csv/sensores`, {
+        method: 'GET',
+        headers: { "Authorization": `Bearer ${authStore.token}` },
+    });
+    if (response.status.value !== "success") {
+        toast.error("Erro ao exportar sensores")
+        return
+    }
+    const string = await response.data.value
+    const link = document.createElement('a');
+    const file = new Blob([string], { type: 'text/csv' });
+    link.href = URL.createObjectURL(file);
+    link.download = 'sensores.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
 </script>
