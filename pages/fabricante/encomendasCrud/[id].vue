@@ -133,6 +133,25 @@
             </ul>
         </div>
     </div>
+    <div
+        class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Observações</h3>
+        </div>
+
+        <div v-show="observacoes == ''">
+                    Sem observações
+                </div>
+        <ol class="relative border-l border-gray-200 dark:border-gray-700">
+            <li class="mb-10 ml-4" v-for="observacao in observacoes">
+                <div
+                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-800 dark:bg-gray-700">
+                </div>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ formatDateObservacoes(observacao.data) }}</time>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ observacao.observacao }}</h3>
+            </li>
+        </ol>
+    </div>
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -156,6 +175,8 @@ const id = route.params.id
 
 const { data: encomenda, error, refresh } = await useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
+const { data: observacoes, error:error1, refresh:refresh1 } = await useFetch(`${api}/encomendas/${id}/observacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
+
 useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${authStore.token}` } }).then((res) => {
     if (res.data.value == null) {
         toast.error('Essa encomenda não existe!')
@@ -171,6 +192,16 @@ function formatDate(date) {
     const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
     return `${da}/${mo}/${ye}`
+}
+function formatDateObservacoes(date) {
+    const d = new Date(date)
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d)
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
+    const ho = new Intl.DateTimeFormat('pt', { hour: '2-digit' }).format(d)
+    const mi = new Intl.DateTimeFormat('pt', { minute: '2-digit' }).format(d)
+    const se = new Intl.DateTimeFormat('pt', { second: '2-digit' }).format(d)
+    return `${da} ${mo} ${ye} -- ${ho}:${mi}:${se}`
 }
 
 const confirmarEncomenda = async (id) => {
