@@ -11,11 +11,23 @@
 
         <div class="items-center justify-between block sm:flex " style="justify-content: right;">
             <div>
+                <button @click="importSensorCSV()"
+                    class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    type="button">
+                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                    </svg>
+                    Importar Sensores CSV
+                </button>
+            </div>
+            <div>
                 <button @click="exportSensorCSV()"
                     class="inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     type="button">
-                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 16 16">
+                    <svg class="w-4 h-4 mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 12V1m0 0L4 5m4-4 4 4m3 5v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
                     </svg>
@@ -162,7 +174,7 @@ definePageMeta({
     middleware: 'fabricante',
 })
 
-const exportSensorCSV = async() => {
+const exportSensorCSV = async () => {
     const response = await useFetch(`${api}/csv/sensores`, {
         method: 'GET',
         headers: { "Authorization": `Bearer ${authStore.token}` },
@@ -178,5 +190,38 @@ const exportSensorCSV = async() => {
     link.download = 'sensores.csv';
     link.click();
     URL.revokeObjectURL(link.href);
+}
+
+const importSensorCSV = async () => {
+    const file = document.createElement('input');
+    file.type = 'file';
+    file.accept = '.csv';
+    file.click();
+    file.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const text = e.target.result;
+            const lines = text.split('\n');
+            lines.shift();
+            const csv = lines.join('\n');
+            const newFile = new Blob([csv], { type: 'text/csv' });
+            const response = await useFetch(`${api}/csv/sensores`, {
+                method: 'POST',
+                headers: { 
+                    "Authorization": `Bearer ${authStore.token}`,
+                    "Content-Type": "text/plain"},
+                body: newFile
+            });
+            if (response.status.value !== "success") {
+                toast.error("Erro ao importar sensores")
+                return
+            }
+            toast.success("Sucesso")
+            refresh()
+        };
+        reader.readAsText(file);
+    });
+    
 }
 </script>
