@@ -9,6 +9,18 @@
                         <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Encomendas</h3>
                     </div>
                 </div>
+                <div>
+                    <select id="default" @change="changeEncomendas" v-model="encomendaFilter"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="ALL" selected>ALL</option>
+                        <option value="PENDENTE">PENDENTE</option>
+                        <option value="PARA_RECOLHA">A ESPERA DE RECOLHA</option>
+                        <option value="RECOLHIDA">RECOLHIDA</option>
+                        <option value="EM_TRANSITO">EM TRANSITO</option>
+                        <option value="ENTREGUE">ENTREGUE</option>
+                        <option value="CANCELADA">CANCELADA</option>
+                    </select>
+                </div>
                 <!-- Table -->
                 <div class="flex flex-col mt-6">
                     <div class="overflow-x-auto rounded-lg">
@@ -116,6 +128,7 @@ import { useAuthStore } from "~/store/auth-store.js"
 const authStore = useAuthStore()
 const config = useRuntimeConfig()
 const api = config.public.API_URL
+const encomendaFilter = ref('ALL')
 const { data: encomendas, error, refresh } = await useFetch(`${api}/consumidor/${authStore.user.username}/encomendas`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 definePageMeta({
@@ -125,6 +138,19 @@ definePageMeta({
 onMounted(() => {
     initFlowbite()
 })
+
+const changeEncomendas = () => {
+    // get the encomendaFilter
+    const filter = encomendaFilter.value
+    // if the filter is not all then filter the encomendas
+    if (filter != 'ALL') {
+        encomendas.value = encomendas.value.filter((encomenda) => encomenda.status == filter)
+    }
+    else {
+        refresh()
+    }
+
+}
 
 
 function formatDate(date) {
