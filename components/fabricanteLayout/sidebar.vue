@@ -79,6 +79,19 @@
                 </a>
               </nuxt-link>
             </li>
+            <li>
+              <nuxt-link to="/testes">
+                <a href="#"
+                  class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 20 16">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 4 1 8l4 4m10-8 4 4-4 4M11 1 9 15" />
+                  </svg>
+                  <span class="ml-3" sidebar-toggle-item>Testes</span>
+                </a>
+              </nuxt-link>
+            </li>
             <!-- <li>
               <nuxt-link to="/fabricante/encomendas">
                 <a href="#"
