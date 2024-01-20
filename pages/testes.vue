@@ -74,7 +74,7 @@
                                     class=" mt-5 block text-lg font-medium text-gray-900 dark:text-white">Criar
                                     nova observacao</label>
 
-                                <div v-if='sensor.data.typeOfSensor == "ABERTURA"' class="grid grid-cols-12 gap-6 pt-3">
+                                <div v-if='sensor.data.typeOfSensor == "ABERTURA" || sensor.data.typeOfSensor == "NIVEL_DE_LIQUIDO"' class="grid grid-cols-12 gap-6 pt-3">
                                     <div class="col-span-12">
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor da
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
 
-                                <div v-if='sensor.data.typeOfSensor != "ABERTURA"' class="grid grid-cols-12 gap-6 pt-3">
+                                <div v-if='sensor.data.typeOfSensor != "ABERTURA" && sensor.data.typeOfSensor != "NIVEL_DE_LIQUIDO"' class="grid grid-cols-12 gap-6 pt-3">
                                     <div class="col-span-12">
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Texto da
@@ -287,7 +287,7 @@
                                                     <tr v-for="(produto, index) in cart">
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Payment from <span class="font-semibold">{{ produto.nome
+                                                            <span class="font-semibold">{{ produto.nome
                                                             }}</span>
                                                         </td>
                                                         <td
