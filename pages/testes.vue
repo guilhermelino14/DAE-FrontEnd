@@ -374,7 +374,6 @@ onMounted(() => {
 const { data: produtos, error, refresh } = await useFetch(`${api}/produtos`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
 const { data: consumidores, error: error1, refresh: refresh1 } = await useFetch(`${api}/consumidor/`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
-console.log("ola", consumidores)
 // on click search sensor with id
 const searchSensor = async () => {
     const data = await useFetch(`${api}/sensores/` + sensor_id.value, { headers: { "Authorization": `Bearer ${authStore.token}` } })
@@ -426,7 +425,6 @@ function formatDate(date) {
 const criarEncomenda = async () => {
     if (!consumidorSelected.value) return
     if (!sensorOnEmbalagemEncomenda.value) sensorType.value = null
-    console.log("request", sensorOnEmbalagemEncomenda.value, sensorType.value, cart.value, consumidorSelected.value)
     const response = await useFetch(`${api}/encomendas/`, {
         method: 'POST',
         headers: { "Authorization": `Bearer ${authStore.token}` },

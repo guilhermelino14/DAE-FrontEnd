@@ -84,7 +84,7 @@ const adicionar = async () => {
             toast.error("Erro")
         }
     } catch (error) {
-        console.log(error)
+        toast.error("Erro")
     } finally {
         loading.value = false;
     }

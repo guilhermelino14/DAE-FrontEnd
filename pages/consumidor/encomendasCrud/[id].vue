@@ -138,7 +138,6 @@ useFetch(`${api}/encomendas/${id}`, { headers: { "Authorization": `Bearer ${auth
     }
 })
 
-console.log(encomenda)
 
 function formatDate(date) {
     const d = new Date(date)

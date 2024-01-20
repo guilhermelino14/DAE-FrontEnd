@@ -119,7 +119,6 @@ const loading = ref(false)
 
 const adicionar = async () => {
     loading.value = true
-    console.log(newProduto.value)
     if (!sensorOnEmbalagemEncomenda.value) newProduto.value.typeOfSensor = null
     try {
         const response = await useFetch(`${api}/produtos/`, {
@@ -135,7 +134,7 @@ const adicionar = async () => {
             toast.error("Erro")
         }
     } catch (error) {
-        console.log(error)
+        toast.error("Erro")
     } finally {
         loading.value = false;
     }

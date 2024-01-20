@@ -175,7 +175,7 @@ const deleteProduto = async (id) => {
             }
         }
     } catch (error) {
-        console.log(error)
+        toast.error("Erro")
     }
 }
 

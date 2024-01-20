@@ -186,7 +186,6 @@ const associar = async (sensorID) => {
             method: 'POST',
             headers: { "Authorization": `Bearer ${authStore.token}` }
         })
-        console.log(response.data.value)
         if (response.status.value === "success") {
             toast.success('Sensor associado com sucesso!')
             sd_refresh()
@@ -200,7 +199,6 @@ const associar = async (sensorID) => {
     }
 }
 
-console.log(embalagem)
 
 const desassociar = async (sensorID) => {
     await useFetch(`${api}/embalagensProduto/${id}/sensor/${sensorID}`, {
@@ -229,7 +227,7 @@ const removerProduto = async (produtoId) => {
             toast.error("Erro")
         }
     } catch (error) {
-        console.log(error)
+        toast.error("Erro")
     }
 }
 

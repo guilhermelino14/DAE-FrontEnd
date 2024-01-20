@@ -127,7 +127,7 @@ const deleteEmbalagem = async (id) => {
       toast.error("Erro")
     }
   } catch (error) {
-    console.log(error)
+    toast.error("Erro")
   }
 }
 onMounted(() => {

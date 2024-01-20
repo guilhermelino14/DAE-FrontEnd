@@ -80,7 +80,7 @@ const login = async (event) => {
         if (response.data.value.user.role == "Operador")
             navigateTo("/operador")
     }).catch(error => {
-        console.log(error)
+        toast.error("Username or password incorrect")
     })
 }
 const addDataToLocalStorafe = (user, token) => {
