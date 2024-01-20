@@ -103,17 +103,8 @@ const authStore = useAuthStore()
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
-const { data: notificacoes, error, refresh } = await useFetch(`${api}/consumidor/${authStore.user.username}/notificacoes`, { headers: { "Authorization": `Bearer ${authStore.token}` } })
 
-const notificacaoNotLidaCount = computed(() => {
-  if (notificacoes.value == null) {
-    return 0
-  }
-  else {
-    return notificacoes.value.filter(notificacao => !notificacao.lida).length
 
-  }
-})
 onMounted(() => {
   initFlowbite();
 })
@@ -163,18 +154,5 @@ const convertDate = (date) => {
   }
 }
 
-function setNotificacaoToLida(id) {
-  fetch(`${api}/consumidor/${authStore.user.username}/notificacoes/${id}/lida`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      "Authorization": `Bearer ${authStore.token}`
-    },
-    body: JSON.stringify({
-      lida: true
-    })
-  }).then(() => {
-    refresh()
-  })
-} 
+
 </script>
