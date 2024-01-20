@@ -212,7 +212,7 @@
                                                     <tr v-for="produto in produtos">
                                                         <td
                                                             class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                            Payment from <span class="font-semibold">{{ produto.nome
+                                                            <span class="font-semibold">{{ produto.nome
                                                             }}</span>
                                                         </td>
                                                         <td
